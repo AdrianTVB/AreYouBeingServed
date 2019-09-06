@@ -27,6 +27,7 @@ namespace Domain.EntityFramework
     
         public virtual DbSet<Official> Officials { get; set; }
         public virtual DbSet<Organisation> Organisations { get; set; }
+        public virtual DbSet<Attendance> Attendances { get; set; }
         public virtual DbSet<Meeting> Meetings { get; set; }
     }
 }

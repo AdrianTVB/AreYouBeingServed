@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CoreEtl.Models.FromScraper
 {
-	class Meeting
+	public class MeetingMetaData
 	{
+		public string Organisation { get; set; }
+		public string Date { get; set; }
+		public string Meeting { get; set; }
 	}
 }

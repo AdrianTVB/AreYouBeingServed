@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\Attendance.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\CreaoDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -64,6 +67,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CreaoDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Meeting.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityFramework\Official.cs">
       <DependentUpon>CreaoDb.tt</DependentUpon>

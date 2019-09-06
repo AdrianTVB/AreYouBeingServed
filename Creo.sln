@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Creo", "Creo\Creo.csproj", "{C84FCC01-9092-4D94-AFB9-D474D2DB4900}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{2C071F92-E480-489D-A4D5-961023D21760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreEtl", "CoreEtl\CoreEtl.csproj", "{DDCDA892-4699-45A9-BA1F-AF9D925BE252}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C84FCC01-9092-4D94-AFB9-D474D2DB4900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C84FCC01-9092-4D94-AFB9-D474D2DB4900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C84FCC01-9092-4D94-AFB9-D474D2DB4900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C071F92-E480-489D-A4D5-961023D21760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C071F92-E480-489D-A4D5-961023D21760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C071F92-E480-489D-A4D5-961023D21760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C071F92-E480-489D-A4D5-961023D21760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDCDA892-4699-45A9-BA1F-AF9D925BE252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDCDA892-4699-45A9-BA1F-AF9D925BE252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDCDA892-4699-45A9-BA1F-AF9D925BE252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDCDA892-4699-45A9-BA1F-AF9D925BE252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

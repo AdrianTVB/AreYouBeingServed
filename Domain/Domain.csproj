@@ -55,10 +55,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CreaoDb.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\CreaoDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\CreaoDb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CreaoDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Official.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Organisation.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +91,12 @@
     <Content Include="EntityFramework\CreaoDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CreaoDb.Context.cs</LastGenOutput>
+      <DependentUpon>CreaoDb.edmx</DependentUpon>
+    </Content>
+    <Content Include="EntityFramework\CreaoDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CreaoDb.edmx</DependentUpon>
+      <LastGenOutput>CreaoDb.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

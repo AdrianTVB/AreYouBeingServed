@@ -5,23 +5,90 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="creo_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfficialId" Type="int" Nullable="false" />
+          <Property Name="MeetingId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Meeting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="OrganisationId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Official">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Organisation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" />
         </EntityType>
+        <Association Name="FK__Meeting__Organis__571DF1D5">
+          <End Role="Organisation" Type="Self.Organisation" Multiplicity="1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="OrganisationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_Meeting">
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meeting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_Official">
+          <End Role="Official" Type="Self.Official" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Official">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="OfficialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="creo_dbModelStoreContainer">
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Official" EntityType="Self.Official" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organisation" EntityType="Self.Organisation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Meeting__Organis__571DF1D5" Association="Self.FK__Meeting__Organis__571DF1D5">
+            <End Role="Organisation" EntitySet="Organisation" />
+            <End Role="Meeting" EntitySet="Meeting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Meeting" Association="Self.FK_Attendance_Meeting">
+            <End Role="Meeting" EntitySet="Meeting" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Official" Association="Self.FK_Attendance_Official">
+            <End Role="Official" EntitySet="Official" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -33,6 +100,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Attendances" Relationship="creo_dbModel.FK_Attendance_Official" FromRole="Official" ToRole="Attendance" />
         </EntityType>
         <EntityType Name="Organisation">
           <Key>
@@ -40,11 +108,83 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Meetings" Relationship="creo_dbModel.FK__Meeting__Organis__571DF1D5" FromRole="Organisation" ToRole="Meeting" />
         </EntityType>
         <EntityContainer Name="creo_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Officials" EntityType="Self.Official" />
           <EntitySet Name="Organisations" EntityType="Self.Organisation" />
+          <EntitySet Name="Meetings" EntityType="creo_dbModel.Meeting" />
+          <AssociationSet Name="FK__Meeting__Organis__571DF1D5" Association="creo_dbModel.FK__Meeting__Organis__571DF1D5">
+            <End Role="Organisation" EntitySet="Organisations" />
+            <End Role="Meeting" EntitySet="Meetings" />
+          </AssociationSet>
+          <EntitySet Name="Attendances" EntityType="creo_dbModel.Attendance" />
+          <AssociationSet Name="FK_Attendance_Meeting" Association="creo_dbModel.FK_Attendance_Meeting">
+            <End Role="Meeting" EntitySet="Meetings" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attendance_Official" Association="creo_dbModel.FK_Attendance_Official">
+            <End Role="Official" EntitySet="Officials" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Meeting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrganisationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Organisation" Relationship="creo_dbModel.FK__Meeting__Organis__571DF1D5" FromRole="Meeting" ToRole="Organisation" />
+          <NavigationProperty Name="Attendances" Relationship="creo_dbModel.FK_Attendance_Meeting" FromRole="Meeting" ToRole="Attendance" />
+        </EntityType>
+        <Association Name="FK__Meeting__Organis__571DF1D5">
+          <End Type="creo_dbModel.Organisation" Role="Organisation" Multiplicity="1" />
+          <End Type="creo_dbModel.Meeting" Role="Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="OrganisationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfficialId" Type="Int32" Nullable="false" />
+          <Property Name="MeetingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Meeting" Relationship="creo_dbModel.FK_Attendance_Meeting" FromRole="Attendance" ToRole="Meeting" />
+          <NavigationProperty Name="Official" Relationship="creo_dbModel.FK_Attendance_Official" FromRole="Attendance" ToRole="Official" />
+        </EntityType>
+        <Association Name="FK_Attendance_Meeting">
+          <End Type="creo_dbModel.Meeting" Role="Meeting" Multiplicity="1" />
+          <End Type="creo_dbModel.Attendance" Role="Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meeting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="MeetingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attendance_Official">
+          <End Type="creo_dbModel.Official" Role="Official" Multiplicity="1" />
+          <End Type="creo_dbModel.Attendance" Role="Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Official">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="OfficialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -64,6 +204,25 @@
               <MappingFragment StoreEntitySet="Organisation">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meetings">
+            <EntityTypeMapping TypeName="creo_dbModel.Meeting">
+              <MappingFragment StoreEntitySet="Meeting">
+                <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attendances">
+            <EntityTypeMapping TypeName="creo_dbModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
+                <ScalarProperty Name="OfficialId" ColumnName="OfficialId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

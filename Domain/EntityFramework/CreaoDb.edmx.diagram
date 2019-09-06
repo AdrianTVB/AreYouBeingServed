@@ -7,6 +7,11 @@
       <Diagram DiagramId="298003ea863646949207094a66613395" Name="Diagram1">
         <EntityTypeShape EntityType="creo_dbModel.Official" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="creo_dbModel.Organisation" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="creo_dbModel.Meeting" Width="1.5" PointX="5" PointY="4.25" />
+        <AssociationConnector Association="creo_dbModel.FK__Meeting__Organis__571DF1D5" />
+        <EntityTypeShape EntityType="creo_dbModel.Attendance" Width="1.5" PointX="7.25" PointY="2.625" />
+        <AssociationConnector Association="creo_dbModel.FK_Attendance_Meeting" />
+        <AssociationConnector Association="creo_dbModel.FK_Attendance_Official" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

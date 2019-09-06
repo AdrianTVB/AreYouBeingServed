@@ -26,5 +26,10 @@ namespace Creo.Controllers
 
 			return View( );
 		}
+
+		public ActionResult CouncillorsAttendance( )
+		{
+			return View( );
+		}
 	}
 }

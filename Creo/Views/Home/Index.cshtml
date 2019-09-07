@@ -11,6 +11,7 @@
 	<table class="table">
 		<thead>
 		<tr>
+			<th scope="col" style="width: 120px;"></th>
 			<th scope="col">Name</th>
 			<th scope="col">Attendance</th>
 		</tr>
@@ -23,9 +24,9 @@
 				<td>
 					@if (!string.IsNullOrEmpty(attendee.ProfileImageUrl))
 					{
-						<img src="@attendee.ProfileImageUrl" alt="Avatar" style="display: inline-block; width: 100px; height: auto;" />
+						<img src="@attendee.ProfileImageUrl" alt="@attendee.Name" style="display: inline-block; width: 100px; height: auto; border-radius: 50%;" />
 					}
-					@attendee.Name
+				<td>@attendee.Name</td>
 				</td>
 				<td>
 					@attendee.Attendances

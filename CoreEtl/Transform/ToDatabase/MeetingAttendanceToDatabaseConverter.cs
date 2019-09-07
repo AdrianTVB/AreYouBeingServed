@@ -1,17 +1,31 @@
-﻿using System;
+﻿using CoreEtl.Models.FromScraper;
+using Domain.EntityFramework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CoreEtl.Models.FromScraper;
 
 namespace CoreEtl.Transform.ToDatabase
 {
 	public class MeetingAttendanceToDatabaseConverter
 	{
-		public void TransformAndInsert( List<MeetingAttendance> meetingAttendances)
+		public void TransformAndInsert( List<MeetingAttendance> meetingAttendances )
 		{
+			using ( creo_dbEntities dbContext = new creo_dbEntities( ) )
+			{
+				foreach ( MeetingAttendance meetingAttendance in meetingAttendances )
+				{
+					// 1. Get or create organization
+					Organisation org = new ConverterHelper( ).GetOrCreateOrganisation( dbContext, meetingAttendance.Organisation );
 
+					// 2. Get or create meeting
+					Meeting meeting = new ConverterHelper( ).GetOrCreateMeeting( dbContext, meetingAttendance.Meeting, meetingAttendance.Date.Date, org );
+					
+					// 2. Get or create official
+					Official official = new ConverterHelper( ).GetOrCreateOfficial( dbContext, meetingAttendance.Meeting, org );
+
+					Attendance att = new Attendance {  Meeting = meeting, Official = official };
+					dbContext.Attendances.Add(att);
+					dbContext.SaveChanges();
+				}
+			}
 		}
 	}
 }

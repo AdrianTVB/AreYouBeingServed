@@ -9,7 +9,7 @@ namespace CoreEtl.Models.FromScraper
 	public class MeetingMetaData
 	{
 		public string Organisation { get; set; }
-		public string Date { get; set; }
+		public DateTime Date { get; set; }
 		public string Meeting { get; set; }
 	}
 }

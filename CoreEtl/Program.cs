@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreEtl.Transform.ToDatabase;
 
 namespace CoreEtl
 {
@@ -11,8 +12,9 @@ namespace CoreEtl
 	{
 		static void Main( string[ ] args )
         {
-            new LoadMeetingFile().LoadFile("");
-            new LoadMeetingAttendanceFile().LoadFile("");
+            var meetingEntries = new LoadMeetingFile().LoadFile("");
+
+			new MeetingAttendanceToDatabaseConverter().TransformAndInsert( meetingEntries );
         }
 	}
 }

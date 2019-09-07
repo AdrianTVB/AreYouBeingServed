@@ -1,8 +1,43 @@
-﻿@{
+﻿@using Creo.ViewModels.Official
+@model Creo.ViewModels.MeetingAttendance.MeetingAttendanceList
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<h2>Councilor Attendance</h2>
+
+<div class="container-fluid">
+	<table class="table">
+		<thead>
+		<tr>
+			<th scope="col">Name</th>
+			<th scope="col">Attendance</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (OfficialListItem attendee in Model.Attendees)
+		{
+
+			<tr data-id="@attendee.Id">
+				<td>
+					@if (!string.IsNullOrEmpty(attendee.ProfileImageUrl))
+					{
+						<img src="@attendee.ProfileImageUrl" alt="Avatar" style="display: inline-block; width: 100px; height: auto;" />
+					}
+					@attendee.Name
+				</td>
+				<td>
+					@attendee.Attendances
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+</div>
+
+
+@*<div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">Yo, Sean this should be a good starting template. I made it dot net framework instead of core, because framework is a bit more mature which means immediate development will hopefully be quicker and the improved light weightness of dot net core probably wouldn't become a factor with 2 days of dev time. </p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -28,4 +63,4 @@
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
-</div>
+</div>*@

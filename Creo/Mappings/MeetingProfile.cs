@@ -2,7 +2,6 @@
 using Creo.ViewModels.MeetingAttendance;
 using Domain.EntityFramework;
 
-
 namespace Creo.Mappings
 {
 	public class MeetingProfile : Profile

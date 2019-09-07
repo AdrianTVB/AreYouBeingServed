@@ -1,33 +1,44 @@
-﻿
+﻿@model Creo.ViewModels.MeetingAttendanceList
+
 @{
-    ViewBag.Title = "CouncillorAttendance";
+	ViewBag.Title = "Councilor Attendance";
 }
 
-<h2>CouncillorAttendance</h2>
+<h2>Councilor Attendance</h2>
 
-<table>
-	<tr>
-		<td>
-			Taj Kamal
-		</td>
-		<td>
-			5%
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Bob Smith
-		</td>
-		<td>
-			75%
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Amy McGee
-		</td>
-		<td>
-			89%
-		</td>
-	</tr>
-</table>
+<div class="container-fluid">
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Attendance</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Taj Kamal
+				</td>
+				<td>
+					56
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Bob Smith
+				</td>
+				<td>
+					75%
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Amy McGee
+				</td>
+				<td>
+					89%
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -14,7 +14,7 @@ namespace CoreEtl
         {
             var meetingEntries = new LoadMeetingFile().LoadFile("");
 
-			new MeetingAttendanceToDatabaseConverter().TransformAndInsert( meetingEntries );
+			//new MeetingAttendanceToDatabaseConverter().TransformAndInsert( meetingEntries );
         }
 	}
 }

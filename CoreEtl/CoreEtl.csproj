@@ -54,6 +54,8 @@
     <Compile Include="Models\FromScraper\MeetingAttendance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transform\FromScraper\LoadMeetingAttendanceFile.cs" />
+    <Compile Include="Transform\FromScraper\LoadMeetingFile.cs" />
     <Compile Include="Transform\ToDatabase\ConverterHelper.cs" />
     <Compile Include="Transform\ToDatabase\MeetingAttendanceToDatabaseConverter.cs" />
     <Compile Include="Transform\ToDatabase\MeetingMetaDataToDatabaseConverter.cs" />
@@ -62,9 +64,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Transform\FromScraper\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Creo\Creo.csproj">
       <Project>{c84fcc01-9092-4d94-afb9-d474d2db4900}</Project>

@@ -17,8 +17,13 @@ namespace CoreEtl.Transform.ToDatabase
 
 					// 2. Get or create meeting
 					Meeting meeting = new ConverterHelper( ).GetOrCreateMeeting( dbContext, meetingAttendance.Meeting, meetingAttendance.Date.Date, org );
-					
+
 					// 2. Get or create official
+					if ( string.IsNullOrEmpty( meetingAttendance.Official ) )
+					{ 
+						continue;
+					}
+
 					Official official = new ConverterHelper( ).GetOrCreateOfficial( dbContext, meetingAttendance.Meeting, org );
 
 					Attendance att = new Attendance {  Meeting = meeting, Official = official };

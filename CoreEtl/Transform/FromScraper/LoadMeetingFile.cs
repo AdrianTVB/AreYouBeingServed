@@ -10,7 +10,7 @@ namespace CoreEtl.Transform.FromScraper
 {
     class LoadMeetingFile
     {
-        public void LoadFile(string url)
+        public List<MeetingMetaData> LoadFile(string url)
         {
             using (var reader = new StreamReader(@"C:\Users\adtvb\Documents\ODM.csv"))
             {
@@ -27,7 +27,10 @@ namespace CoreEtl.Transform.FromScraper
                     listB.Add(values[1]);
                     listC.Add(values[2]);
                 }
+
+				return Meetings;
             }
+
         }
     }
 }

@@ -6,11 +6,11 @@ namespace CoreEtl.Transform.ToDatabase
 {
 	public class MeetingAttendanceToDatabaseConverter
 	{
-		public void TransformAndInsert( List<MeetingAttendance> meetingAttendances )
+		public void TransformAndInsert( List<MeetingMetaData> meetingAttendances )
 		{
 			using ( creo_dbEntities dbContext = new creo_dbEntities( ) )
 			{
-				foreach ( MeetingAttendance meetingAttendance in meetingAttendances )
+				foreach ( MeetingMetaData meetingAttendance in meetingAttendances )
 				{
 					// 1. Get or create organization
 					Organisation org = new ConverterHelper( ).GetOrCreateOrganisation( dbContext, meetingAttendance.Organisation );

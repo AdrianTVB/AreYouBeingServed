@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-using CoreEtl.Models.FromScraper;
+using Creo.ViewModels.MeetingAttendance;
 
 namespace Creo.Controllers
 {
@@ -12,21 +12,8 @@ namespace Creo.Controllers
 	{
 		public ActionResult Index( )
 		{
-			using ( var reader = new StreamReader( @"C:\test.csv" ) )
-			{
-				List<MeetingAttendance> Organisation = new List<MeetingAttendance>( );
-				List<MeetingAttendance> Date = new List<MeetingAttendance>( );
-				List<MeetingAttendance> Meeting = new List<MeetingAttendance>( );
-				while ( !reader.EndOfStream )
-				{
-					var line = reader.ReadLine( );
-					var values = line.Split( ';' );
+			MeetingAttendanceList view = new MeetingAttendanceList( );
 
-					Organisation.Add( values[ 0 ] );
-					Date.Add( values[ 1 ] );
-					Meeting.Add(values[2]);
-				}
-			}
 
 			return View( );
 		}

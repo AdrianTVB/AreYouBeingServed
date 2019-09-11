@@ -12,9 +12,15 @@ namespace CoreEtl
 	{
 		static void Main( string[ ] args )
         {
-            var meetingEntries = new LoadMeetingFile().LoadFile("");
+			var meetingEntriesHDC = new LoadMeetingFile( ).LoadFile( @"..\..\..\DataSources\HDC2019.csv" );
 
-			//new MeetingAttendanceToDatabaseConverter().TransformAndInsert( meetingEntries );
-        }
+			new MeetingAttendanceToDatabaseConverter( ).TransformAndInsert( meetingEntriesHDC );
+
+
+
+			//var meetingEntriesNCC = new LoadMeetingFile( ).LoadFile( @"..\..\..\DataSources\ncc2019.csv" );
+
+			//new MeetingAttendanceToDatabaseConverter( ).TransformAndInsert( meetingEntriesNCC );
+		}
 	}
 }

@@ -1,0 +1,50 @@
+﻿@using Creo.ViewModels.Official
+@model  Creo.ViewModels.MeetingAttendance.MeetingAttendanceList
+
+<h2>@Model.Title</h2>
+
+<div>
+	How many council and sub-committee meetings did each councillor attend? 
+</div>
+<br/>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col" style="width: 120px;"></th>
+			<th scope="col">Name</th>
+			<th scope="col">Attendance</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach ( OfficialListItem attendee in Model.Attendees )
+		{
+
+			<tr data-id="@attendee.Id">
+				<td>
+					@if ( !string.IsNullOrEmpty( attendee.ProfileImageUrl ) )
+					{
+						<img src="@attendee.ProfileImageUrl" alt="@attendee.Name" style="display: inline-block; width: 100px; height: auto; border-radius: 50%;" />
+					}
+					else
+					{
+						<img src="~/Images/profile.png" alt="@attendee.Name" style="display: inline-block; width: 100px; height: auto; border-radius: 50%;" />
+					}
+				<td>@attendee.Name</td>
+				</td>
+				<td>
+					@attendee.Attendances
+				</td>
+				<td>
+					<div class="progress" style="width:400px">
+						<div class="progress-bar" role="progressbar" aria-valuenow="0"
+							  @{int one = Decimal.ToInt32( ( Math.Round( ( decimal )attendee.Attendances / Model.MaxAttending, 2 ) * 100 ) ); }
+							  aria-valuemin="0" aria-valuemax="100" style="width: @(one )%">
+							@*<span class="sr-only">70% Complete</span>*@
+						</div>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

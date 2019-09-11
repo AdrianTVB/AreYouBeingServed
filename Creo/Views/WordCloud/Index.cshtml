@@ -1,0 +1,14 @@
+﻿@using Creo.ViewModels.Images
+@model List<WordCloudImage>
+
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+	A visualisation of what's been discussed in 2019
+</div>
+<div class="container-fluid">
+	<div>
+		<img src="@Url.Content(Model[0].ImageUrl)" />
+	</div>
+</div>

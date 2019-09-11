@@ -1,67 +1,166 @@
-﻿@using Creo.ViewModels.Official
-@model Creo.ViewModels.MeetingAttendance.MeetingAttendanceList
+﻿@model Creo.ViewModels.MeetingAttendance.MeetingAttendanceList
 
 @{
-    ViewBag.Title = "Home Page";
+	ViewBag.Title = "Home Page";
+}
+
+@section scripts {
+	<script type="text/javascript">
+		var map = null;
+
+		var geoJson;
+
+		$(document).ready(function () {
+
+			var geoJSONattribution =
+				'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+				'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="https://www.mapbox.com/">Mapbox</a> Map Tiles &copy; <a href="https://datafinder.stats.govt.nz/">Stats NZ</a>';
+
+			var mapboxAccessToken =
+				'pk.eyJ1IjoiZ2FiZXdhcmQiLCJhIjoiY2swOHdwNXVsMDJuMDNucXI3YXNmNzVjbSJ9.KSMZisWsyb-eZMP-r-fY3w';
+
+			map = L.map('map').setView([-39.744219, 176.430936], 7);
+
+
+			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken,
+				{
+					id: 'mapbox.light',
+					attribution: geoJSONattribution
+				}).addTo(map);
+
+			$.ajax({
+				url:
+					'https://datafinder.stats.govt.nz/services/query/v1/vector.json?key=dec372bbf1174dfcb85d4b0d26a2d204&layer=98753&x=176.80312333985134&y=-39.82598651618925&max_results=10&radius=30000&geometry=true&with_field_names=true',
+				type: 'GET',
+				dataType: 'json'
+			}).done(function (result) {
+				result.vectorQuery.layers['98753'].features[1].id = 18;
+				result.vectorQuery.layers['98753'].features[3].id = 17;
+
+				var features = [
+					result.vectorQuery.layers['98753'].features[1], result.vectorQuery.layers['98753'].features[3]
+				];
+
+				result.vectorQuery.layers['98753'].features = features;
+				geoJson = L.geoJson(result.vectorQuery.layers['98753'], { style: style, onEachFeature: onEachFeature }).addTo(map);
+			});
+
+		});
+
+		function onEachFeature(feature, layer) {
+			layer.on({
+				mouseover: highlightFeature,
+				mouseout: resetHighlight,
+				click: zoomToFeature
+			});
+		}
+
+		function zoomToFeature(e) {
+			$('.modal-header .modal-title').html(setTitle(e.target.feature.id));
+			$('.modal-body  .list-of-attendance').attr('href', getListOfCouncillorsUrl(e.target.feature.id));
+			$('.modal-body  .word-cloud').attr('href', getWordCloudUrl(e.target.feature.id));
+			$('#modalTrigger').trigger('click');
+		}
+
+		function getColor(id) {
+			if (id == 18) {
+				return '#7fcdbb';
+			}
+			return '#2c7fb8';
+		}
+
+		function style(feature) {
+			return {
+				fillColor: getColor(feature.id),
+				weight: 2,
+				opacity: 1,
+				color: 'white',
+				dashArray: '3',
+				fillOpacity: 0.7
+			};
+		}
+
+		function highlightFeature(e) {
+			var layer = e.target;
+
+			layer.setStyle({
+				weight: 1,
+				color: '#666',
+				dashArray: '',
+				fillOpacity: 0.7
+			});
+
+			if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+				layer.bringToFront();
+			}
+		}
+
+		function resetHighlight(e) {
+			geoJson.resetStyle(e.target);
+		}
+
+		function setTitle(id) {
+			if (id == 17) {
+				return "Napier City Council";
+			}
+			return "Hastings District Council";
+		}
+
+		function getListOfCouncillorsUrl(id) {
+			return '/Home/ListOfCouncillors?organisationId=' + id;
+		}
+
+		function getWordCloudUrl(id) {
+			return '/WordCloud/Index?organisationid=' + id;
+		}
+	</script>
+
+	<style type="text/css">
+		#map {
+			height: 600px;
+			width: 900px;
+		}
+	</style>
 }
 
 <h2>Councilor Attendance</h2>
 
 <div class="container-fluid">
-	<table class="table">
-		<thead>
-		<tr>
-			<th scope="col" style="width: 120px;"></th>
-			<th scope="col">Name</th>
-			<th scope="col">Attendance</th>
-		</tr>
-		</thead>
-		<tbody>
-		@foreach (OfficialListItem attendee in Model.Attendees)
-		{
 
-			<tr data-id="@attendee.Id">
-				<td>
-					@if (!string.IsNullOrEmpty(attendee.ProfileImageUrl))
-					{
-						<img src="@attendee.ProfileImageUrl" alt="@attendee.Name" style="display: inline-block; width: 100px; height: auto; border-radius: 50%;" />
-					}
-				<td>@attendee.Name</td>
-				</td>
-				<td>
-					@attendee.Attendances
-				</td>
-			</tr>
-		}
-		</tbody>
-	</table>
+	<div>
+		Select the council area that you want information about.
+	</div>
+	<br />
+	<div id="map"></div>
+
 </div>
 
+<button type="button" id="modalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none;">
+	Launch demo modal
+</button>
 
-@*<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">Yo, Sean this should be a good starting template. I made it dot net framework instead of core, because framework is a bit more mature which means immediate development will hopefully be quicker and the improved light weightness of dot net core probably wouldn't become a factor with 2 days of dev time. </p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					Do you want to see what topics the councillors have been talking about, or the meeting attendance of the councillors?
+				</div>
+				<br/>
+				<a class="list-of-attendance btn btn-primary" href="/Home/ListOfCouncillors?organisationid=4" style="background: #7fcdbb; border-color: #7fcdbb;">Attendance</a>
+				<a class="word-cloud btn btn-primary">Word Clouds</a>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>*@

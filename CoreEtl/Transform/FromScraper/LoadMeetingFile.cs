@@ -9,34 +9,55 @@ using System.Threading.Tasks;
 
 namespace CoreEtl.Transform.FromScraper
 {
-    class LoadMeetingFile
-    {
-        public List<MeetingMetaData> LoadFile(string url)
-        {
-            using (var reader = new StreamReader(@"C:\Users\adtvb\Documents\ncc2019.csv"))
-            {
-                List<MeetingMetaData> Meetings = new List<MeetingMetaData>();
+	class LoadMeetingFile
+	{
+		public List<MeetingMetaData> LoadFile( string url )
+		{
+			using ( var reader = new StreamReader( url ) )
+			{
+				List<MeetingMetaData> Meetings = new List<MeetingMetaData>( );
 
-                while (!reader.EndOfStream)
-                {
-                    MeetingMetaData Meeting = new MeetingMetaData();
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
+				while ( !reader.EndOfStream )
+				{
+					MeetingMetaData Meeting = new MeetingMetaData( );
+					var line = reader.ReadLine( );
+					var values = line.Split( ',' );
 
-                    Meeting.Organisation = values[0];
-                    Meeting.Date = DateTime.ParseExact(values[1], "dd/MM/yyyy",
-                                           CultureInfo.InvariantCulture);
-                    Meeting.Meeting = values[2];
-                    Meeting.Official = values[3];
-                    Meeting.Notes = values[5];
+					if ( values[ 0 ] == "Organisation" )
+					{
+						continue;
+					}
+					int i = 0;
+					Meeting.Organisation = values[ i++ ];
+					if ( !string.IsNullOrEmpty( values[ i ] ) )
+					{
+						if ( values[ i ][ i ] == '/' )
+						{
+							values[ i ] = '0' + values[ i ];
+						}
+						Meeting.Date = DateTime.ParseExact( values[ i ], "dd/MM/yyyy",
+											   CultureInfo.InvariantCulture );
+					}
+					else
+					{
+						continue;
+					}
 
-                    Meetings.Add(Meeting);
+					i++;
+					Meeting.Meeting = values[ i++ ];
+					Meeting.NameRaw = values[ i++ ];
+					Meeting.Official = values[ i++ ];
+					//Meeting.LastName = values[ i++ ];
+					Meeting.VideoLink = values[ i++ ];
+					Meeting.OrganisationForOfficial = values[ i++ ];
+					Meetings.Add( Meeting );
 
-                }
+				}
 
+				Console.WriteLine( $"Loaded in {Meetings.Count} lines in file." );
 				return Meetings;
-            }
+			}
 
-        }
-    }
+		}
+	}
 }

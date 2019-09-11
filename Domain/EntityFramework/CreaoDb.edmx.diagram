@@ -12,6 +12,7 @@
         <AssociationConnector Association="creo_dbModel.FK_Attendance_Meeting" />
         <AssociationConnector Association="creo_dbModel.FK_Attendance_Official" />
         <AssociationConnector Association="creo_dbModel.FK__Meeting__Organis__571DF1D5" />
+        <AssociationConnector Association="creo_dbModel.FK_Official_Organisation" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

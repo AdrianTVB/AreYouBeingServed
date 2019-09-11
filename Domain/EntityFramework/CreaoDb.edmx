@@ -28,6 +28,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" />
+          <Property Name="OrganisationId" Type="int" />
         </EntityType>
         <EntityType Name="Organisation">
           <Key>
@@ -72,6 +73,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Official_Organisation">
+          <End Role="Organisation" Type="Self.Organisation" Multiplicity="0..1" />
+          <End Role="Official" Type="Self.Official" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Official">
+              <PropertyRef Name="OrganisationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="creo_dbModelStoreContainer">
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
@@ -89,6 +102,10 @@
             <End Role="Official" EntitySet="Official" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
+          <AssociationSet Name="FK_Official_Organisation" Association="Self.FK_Official_Organisation">
+            <End Role="Organisation" EntitySet="Organisation" />
+            <End Role="Official" EntitySet="Official" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -101,6 +118,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Attendances" Relationship="creo_dbModel.FK_Attendance_Official" FromRole="Official" ToRole="Attendance" />
+          <Property Name="OrganisationId" Type="Int32" />
+          <NavigationProperty Name="Organisation" Relationship="creo_dbModel.FK_Official_Organisation" FromRole="Official" ToRole="Organisation" />
         </EntityType>
         <EntityType Name="Organisation">
           <Key>
@@ -109,6 +128,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Meetings" Relationship="creo_dbModel.FK__Meeting__Organis__571DF1D5" FromRole="Organisation" ToRole="Meeting" />
+          <NavigationProperty Name="Officials" Relationship="creo_dbModel.FK_Official_Organisation" FromRole="Organisation" ToRole="Official" />
         </EntityType>
         <EntityContainer Name="creo_dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Officials" EntityType="Self.Official" />
@@ -126,6 +146,10 @@
           <AssociationSet Name="FK__Meeting__Organis__571DF1D5" Association="creo_dbModel.FK__Meeting__Organis__571DF1D5">
             <End Role="Organisation" EntitySet="Organisations" />
             <End Role="Meeting" EntitySet="Meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Official_Organisation" Association="creo_dbModel.FK_Official_Organisation">
+            <End Role="Organisation" EntitySet="Organisations" />
+            <End Role="Official" EntitySet="Officials" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Attendance">
@@ -185,6 +209,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Official_Organisation">
+          <End Type="creo_dbModel.Organisation" Role="Organisation" Multiplicity="0..1" />
+          <End Type="creo_dbModel.Official" Role="Official" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organisation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Official">
+              <PropertyRef Name="OrganisationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -194,6 +230,7 @@
           <EntitySetMapping Name="Officials">
             <EntityTypeMapping TypeName="creo_dbModel.Official">
               <MappingFragment StoreEntitySet="Official">
+                <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>

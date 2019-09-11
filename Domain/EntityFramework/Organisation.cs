@@ -18,6 +18,7 @@ namespace Domain.EntityFramework
         public Organisation()
         {
             this.Meetings = new HashSet<Meeting>();
+            this.Officials = new HashSet<Official>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace Domain.EntityFramework
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meeting> Meetings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Official> Officials { get; set; }
     }
 }

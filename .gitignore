@@ -204,3 +204,7 @@ _dependentPackages/
 
 # Visual Studio Code
 .vscode/
+
+# Scrape files
+**/data
+**/docs

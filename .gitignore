@@ -209,3 +209,6 @@ _dependentPackages/
 scrape/data
 scrape/docs
 /venv
+
+# Scrape db
+rubs.db

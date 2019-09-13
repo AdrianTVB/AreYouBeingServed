@@ -206,5 +206,6 @@ _dependentPackages/
 .vscode/
 
 # Scrape files
-**/data
-**/docs
+scrape/data
+scrape/docs
+/venv

@@ -58,13 +58,10 @@ with open(os.path.join(fileDir, fileName), "r") as f:
     rawText = f.read()
 
 
-attend = subString(text=rawText, startWord=startWord, endWord=endWord)
+attendText = subString(text=rawText, startWord=startWord, endWord=endWord)
 
-print("Raw......")
-print(attend)
-print("")
-print("Processed....")
-print(attendList(attend, surnameList))
+
+attendance = attendList(attend, surnameList))
 
 
 

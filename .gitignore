@@ -207,8 +207,12 @@ _dependentPackages/
 
 # Scrape files
 scrape/data
-scrape/docs
+scrape/docs/useful.md
+scrape/docs/webLinks.md
+scrape/docs/rubs_er_initial.jpeg
 /venv
 
 # Scrape db
 rubs.db
+
+# Allow ER diagrams

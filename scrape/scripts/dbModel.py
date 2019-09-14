@@ -94,5 +94,6 @@ class MeetingAttendance(Base):
     meetID = Column(Integer, ForeignKey('meetings.meetID'))
     repID = Column(Integer, ForeignKey('representatives.repID'))
 
+
 #Organisation.representatives = relationship("Representative", order_by=Representative.id, back_populates="organisation")
 Base.metadata.create_all(engine)

@@ -4,8 +4,11 @@
 
 import sqlalchemy as db
 import baseinfo
+import dbConnectionString
 
-engine = db.create_engine('sqlite:///rubs.db')
+#engine = db.create_engine('sqlite:///rubs.db')
+# options are 'sqlite' or 'dev'
+engine = db.create_engine(dbConnectionString.connectionString('sqlite'))
 
 connection = engine.connect()
 metadata = db.MetaData()

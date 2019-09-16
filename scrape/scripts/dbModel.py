@@ -3,9 +3,11 @@
 from sqlalchemy import create_engine, ForeignKey, Column, Integer, String, Date, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+import dbConnectionString
 
-
-engine = create_engine('sqlite:///rubs.db')
+#engine = create_engine('sqlite:///rubs.db')
+# options are 'sqlite' or 'dev'
+engine = create_engine(dbConnectionString.connectionString('sqlite'))
 
 Base = declarative_base()
 
@@ -28,6 +30,7 @@ class Representative(Base):
     repID = Column(Integer, primary_key=True)
     surname = Column(String(50))
     forename = Column(String(50))
+    imageUrl = Column(String(200))
 
     def __repr__(self):
        return "<Representative(Forename='%s', Surname='%s')>" % (

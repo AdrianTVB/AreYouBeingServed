@@ -215,4 +215,8 @@ scrape/docs/rubs_er_minSplit.jpeg
 # Scrape db
 rubs.db
 
-# Allow ER diagrams
+# DB connections
+secrets.json
+
+# Cache
+**/__pycache__

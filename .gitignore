@@ -219,4 +219,5 @@ rubs.db
 secrets.json
 
 # Cache
-**/__pycache__
+**/__pycache__/*
+*.pyc

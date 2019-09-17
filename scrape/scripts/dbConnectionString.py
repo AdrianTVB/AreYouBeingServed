@@ -15,7 +15,7 @@ def get_secret(setting, secrets=secrets):
         print("Invalid Key")
 
 
-def connectionString(type='sqlite'):
+def connection_string(type='sqlite'):
     if type == 'sqlite':
         # Use a local sqlite database
         return 'sqlite:///rubs.db'

@@ -1,15 +1,17 @@
 # Import Functions
 
-from sqlalchemy import create_engine, ForeignKey, Column, Integer, String, Date, Text
+from sqlalchemy import create_engine, ForeignKey, Column, Integer, String, Date, Text, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import dbConnectionString
 
 #engine = create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = create_engine(dbConnectionString.connectionString('sqlite'))
+engine = create_engine(dbConnectionString.connection_string('sqlite'))
 
 Base = declarative_base()
+
+metadata = MetaData()
 
 
 class Organisation(Base):
@@ -33,8 +35,8 @@ class Representative(Base):
     imageUrl = Column(String(200))
 
     def __repr__(self):
-       return "<Representative(Forename='%s', Surname='%s')>" % (
-                            self.forename, self.surname)
+       return "<Representative(Forename='%s', Surname='%s', ImageUrl='%s')>" % (
+                            self.forename, self.surname, self.imageUrl)
 
 
 class Role(Base):
@@ -99,4 +101,5 @@ class MeetingAttendance(Base):
 
 
 #Organisation.representatives = relationship("Representative", order_by=Representative.id, back_populates="organisation")
-Base.metadata.create_all(engine)
+#Base.metadata.create_all(engine)
+metadata.create_all(engine)

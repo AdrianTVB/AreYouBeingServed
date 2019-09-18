@@ -4,15 +4,20 @@ import csv
 import re
 
 
-def meetInfoCouncilScrape(url = None, file = None):
+def meet_infocouncil_scrape(url = None, file = None, file_url = None):
     # Scrape meeting information and links to minutes from an InfoCouncil webpage
     # The webpage can be provided as either a url, or downloaded html file
     if url:
         page_response = requests.get(url, timeout=5)
         page_content = BeautifulSoup(page_response.content, "html.parser")
+        target_url = url
     elif file:
         html = open(file).read()
         page_content = BeautifulSoup(html, "html.parser")
+        if file_url:
+            target_url = file_url
+        else:
+            target_url = ""
     else:
         print("A file path or url must be provided")
         return {}
@@ -49,11 +54,17 @@ def meetInfoCouncilScrape(url = None, file = None):
                 rawlink = link['href']
                 cleanLink = rawlink[(rawlink.find('=')+1):]
                 # the cleanlink needs _WEB chopped out of it in order for it to provide the useful url
-                minutes['url'] = targetUrl + cleanLink.replace('_WEB', '')
+                minutes['url'] = target_url + cleanLink.replace('_WEB', '')
                 links.append(minutes)
             # create the meeting info
             if col == 1:
-                meeting['Date'] = outtxt
+                # look for the year
+                m = outtxt[:11].find('201')
+                if m == -1:
+                    m = outtxt[:11].find('202')
+                # extract the date, ie everything up to the end of the year
+                datetxt = outtxt[:(m + 4)]
+                meeting['Date'] = datetxt
             elif col == 2:
                 meeting['Type'] = outtxt
             elif col == 5:
@@ -66,5 +77,5 @@ def meetInfoCouncilScrape(url = None, file = None):
     return output_list
 
 
-#print(meetInfoCouncilScrape(url = "http://napier.infocouncil.biz/"))
+#print(meet_infocouncil_scrape(url = "http://hastings.infocouncil.biz/"))
 #print(meetInfoCouncilScrape(file = "scrape/data/html/ncc1.html"))

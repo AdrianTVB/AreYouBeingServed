@@ -104,3 +104,14 @@ representatives = [
         "ImageUrl": "https://www.hastingsdc.govt.nz/assets/Contacts/KevinWatkins-HDCweb.jpg"
     },
 ]
+
+meetingUrl = [
+    {
+        "org_short": "HDC",
+        "meet_sched_url": "http://hastings.infocouncil.biz/"
+    },
+    {
+        "org_short": "NCC",
+        "meet_sched_url": "http://napier.infocouncil.biz/"
+    }
+]

@@ -9,14 +9,14 @@ import os.path
 
 # Url from browser is to the navigation frame, drop the _WEB to get to the contents
 #url = "http://hastings.infocouncil.biz/Open/2019/08/COR_22082019_MIN_4613_WEB.htm"
-url = "http://hastings.infocouncil.biz/Open/2019/08/COR_22082019_MIN_4613.htm"
+#url = "http://hastings.infocouncil.biz/Open/2019/08/COR_22082019_MIN_4613.htm"
 
 # save as text file
-fileDate = "20190822"
-meetingType = "Council"
-organisation = "hdc"
-outputDir = "data/txt/"
-outputFile = fileDate + "_" + organisation + "_" + meetingType + ".txt"
+#fileDate = "20190822"
+#meetingType = "Council"
+#organisation = "hdc"
+#outputDir = "data/txt/"
+#outputFile = fileDate + "_" + organisation + "_" + meetingType + ".txt"
 
 
 # Old code from original post (uses urllib)
@@ -54,4 +54,4 @@ def html_to_txt(url, outputDir, outputFile):
         f.write(text)
 
 
-html_to_txt(url=url, outputDir=outputDir, outputFile=outputFile)
+#html_to_txt(url=url, outputDir=outputDir, outputFile=outputFile)

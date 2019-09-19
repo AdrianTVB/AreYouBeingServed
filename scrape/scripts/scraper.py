@@ -10,6 +10,7 @@ import baseinfo
 import dbConnectionString
 
 from schedProc import meet_infocouncil_scrape
+from html_to_text import html_to_txt
 
 #engine = db.create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
@@ -37,6 +38,15 @@ meeting_types = db.Table('meetingTypes',
                             autoload=True,
                             autoload_with=engine)
 
+meeting_rep_relationships = db.Table('meetingRepRelationships',
+                            metadata,
+                            autoload=True,
+                            autoload_with=engine)
+
+meeting_type_scrape_help = db.Table('meetingTypeScrapeHelper',
+                            metadata,
+                            autoload=True,
+                            autoload_with=engine)
 
 def meet_type_query(type=None):
     if not type:
@@ -47,6 +57,34 @@ def meet_type_query(type=None):
     meet_p = connection.execute(meet_q)
     return meet_p.fetchall()
 
+
+def org_id_lookup(shortName=None):
+    # get the organisation ID corresponding to org_short
+    org_q = db.select([organisations]).\
+      where(organisations.columns.shortName == shortName)
+    org_p = connection.execute(org_q)
+    org = org_p.fetchall()
+    # Ensure that there is a result
+    if len(org) != 1:
+        print("Organisation short name doesn't exist, or exists multiple times,\
+              please update organisations")
+        return -1
+    else:
+        # Extract the organisation ID
+        return org[0][0]
+
+def meet_type_id_lookup(meet_type_name=None):
+    meet_q = db.select([meeting_types.columns.meetTypeID]).\
+      where(meeting_types.columns.meetName == meet_type_name)
+    meet_p = connection.execute(meet_q)
+    meet_t = meet_p.fetchall()
+    if len(meet_t) != 1:
+        print("Meeting type doesn't exist, or exists multiple times,\
+              please update meeting types")
+        return -1
+    else:
+        # Return the meeting ID
+        return meet_t[0][0]
 
 def org_update(new_org):
     #Check newOrg has an orgName field
@@ -81,14 +119,17 @@ def org_update(new_org):
                 ResultProxy = connection.execute(udt)
 
 
-def rep_update(new_rep):
+def rep_update(new_rep, orgShortName, start=None, end=None):
     #Check newOrg has an orgName field
     if not new_rep['Surname']:
         print("Dictionary must contain a 'Surname'")
         return -1
-    # Check if representative already in the Table
+    # Check if representative already in the Table for the org and timeperiod
+    # Look up the organisation ID for the shortname provided
+    org_id = org_id_lookup(shortName=orgShortName)
     exist = db.select([representatives]).\
-      where(representatives.columns.surname == new_rep['Surname'])
+      where(and_(representatives.columns.surname == new_rep['Surname'],
+                representatives.columns.orgID == org_id))
     ResultProxy = connection.execute(exist)
     ResultSet = ResultProxy.fetchall()
 
@@ -100,7 +141,8 @@ def rep_update(new_rep):
         ins = db.insert(representatives).\
           values(surname=new_rep['Surname'],
                 forename=new_rep['Forename'],
-                imageUrl=new_rep['ImageUrl'])
+                imageUrl=new_rep['ImageUrl'],
+                orgID=org_id)
         ResultProxy = connection.execute(ins)
     else:
         # there is already a record,
@@ -123,17 +165,7 @@ def meetings_base(meet_url=None):
         print("A dictionary containing org_short and meet_sched_url must be provided")
         return -1
     # get the organisation ID corresponding to org_short
-    org_q = db.select([organisations]).\
-      where(organisations.columns.shortName == meet_url['org_short'])
-    org_p = connection.execute(org_q)
-    org = org_p.fetchall()
-    # Ensure that there is a result
-    if len(org) != 1:
-        print("Organisation short name doesn't exist, or exists multiple times,\
-              please update organisations")
-        return -1
-    # Extract the organisation ID
-    org_id = org[0][0]
+    org_id = org_id_lookup(shortName=meet_url['org_short'])
 
     # read the meeting schedule into a variable
     meet_l = meet_infocouncil_scrape(url=meet_url['meet_sched_url'])
@@ -145,7 +177,7 @@ def meetings_base(meet_url=None):
             continue
         # Parse the date
         if m['Date']:
-            date_obj = datetime.strptime(m['Date'], '%d %b %Y')
+            date_obj = datetime.strptime(m['Date'], '%d %b %Y').date()
         else:
             print("No Date field")
             continue
@@ -175,6 +207,7 @@ def meetings_base(meet_url=None):
         meet_qry = db.select([meetings]).\
           where(and_(meetings.columns.orgID == org_id,
                 meetings.columns.meetTypeID == m_type_id,
+                # Need to sort the comparison out datetime date to datetime object.
                 meetings.columns.meetDate == date_obj))
         meet_prox = connection.execute(meet_qry)
         meet_set = meet_prox.fetchall()
@@ -196,7 +229,7 @@ def meetings_base(meet_url=None):
                 udt = db.update(meetings).\
                       where(meetings.columns.meetID == meet_set[0][0]).\
                       values(minuteUrl=ou['url'],
-                            meetType=ou['Type'])
+                            minuteType=ou['Type'])
                 update = connection.execute(udt)
 
 def meeting_text():
@@ -213,19 +246,114 @@ def meeting_text():
     for m in meet_set:
         print(m)
 
-    #extract the date
+        #extract the date
+        mdate = m[3].strftime("%Y%m%d")
+        #identify the shortname for the organisations
+        org_q = db.select([organisations.columns.shortName]).\
+          where(organisations.columns.orgID == m[1])
+        org_p = connection.execute(org_q)
+        org = org_p.fetchall()[0][0]
+        #print(org)
+        #print(org[0][0])
+        #identify the meeting type
+        meet_q = db.select([meeting_types.columns.meetName]).\
+          where(meeting_types.columns.meetTypeID == m[2])
+        meet_p = connection.execute(meet_q)
+        meet_t = meet_p.fetchall()
+        #print(meet_t[0][0])
+        # Clean the string and remove spaces
+        meet_txt = ''.join(e for e in meet_t[0][0] if e.isalnum())
+        #print(meet_txt)
+        #get the recordID
+        recID = str(m[0])
+        #concatomate into a filename
+        fname = mdate + org + meet_txt + recID + '.txt'
+        #read the url and type and then save as a text file
+        if m[5] == 'html':
+            html_to_txt(url=m[4],
+                        outputDir="scrape/data/txt/scraped/",
+                        outputFile=fname)
+            print(fname)
+            #add the filename to the database
+            udt = db.update(meetings).\
+                  where(meetings.columns.meetID == m[0]).\
+                  values(minuteFile=fname)
+            update = connection.execute(udt)
 
-    #identify the shortname for the organisations
 
-    #identify the meeting types
+def meet_rep_all_pop(meet_all=None, start_date=None, end_date=None):
+    if not meet_all:
+        print("A list of dictionaries of meetings all representatives \
+               are expected to attend is required")
+        return -1
+    # Iterate through the file
+    for e in meet_all:
+        # Identify the organisation and meeting type
+        # get the organisation ID corresponding to org_short
+        org_id = org_id_lookup(shortName=e['org_short'])
+        #identify the meeting type
+        meet_type_id = meet_type_id_lookup(meet_type_name=e['meet_type'])
+        # get a list of representatives for that org
+        rep_q = db.select([representatives]).\
+          where(representatives.columns.orgID == org_id)
+        rep_p = connection.execute(rep_q)
+        rep_l = rep_p.fetchall()
+        for r in rep_l:
+            # Insert data into the MeetingRepRelationShip table_row
+            meetrep_qry = db.select([meeting_rep_relationships]).\
+              where(and_(meeting_rep_relationships.columns.orgID == org_id,
+                    meeting_rep_relationships.columns.repID == r[0],
+                    meeting_rep_relationships.columns.meetTypeID == meet_type_id))
+            meetrep_prox = connection.execute(meetrep_qry)
+            meetrep_set = meetrep_prox.fetchall()
+            print(meetrep_set)
+            # If it isn't then insert it
+            if not meetrep_set:
+                ins = db.insert(meeting_rep_relationships).\
+                  values(orgID=org_id,
+                        meetTypeID=meet_type_id,
+                        repID=r[0])
+                ResultProxy = connection.execute(ins)
 
-    #get the recordID
 
-    #concatomate into a filename
+def scrape_help_update(new_helper):
+    #Check new_helper has an orgshort and meeting type field
+    if not new_helper['org_short'] or not new_helper['meet_type']:
+        print("Dictionary must contain an 'org_short' and 'meet_type'")
+        return -1
+    # Lookup the org_id
+    org_id = org_id_lookup(shortName=new_helper['org_short'])
+    # Lookup the meet_type_id
+    meet_type_id = meet_type_id_lookup(meet_type_name=new_helper['meet_type'])
+    # Check if entry already in the Table
+    exist = db.select([meeting_type_scrape_help]).\
+      where(and_(meeting_type_scrape_help.columns.orgID == org_id,
+                meeting_type_scrape_help.columns.meetTypeID == meet_type_id))
+    ResultProxy = connection.execute(exist)
+    ResultSet = ResultProxy.fetchall()
 
-    #read the url and type and then save as a text file
+    print(len(ResultSet))
+    print(ResultSet)
 
-    #add the filename to the database
+    # If it isn't then insert it
+    if not ResultSet:
+        ins = db.insert(meeting_type_scrape_help).\
+          values(orgID=org_id,
+                meetTypeID=meet_type_id,
+                startWord=new_helper['startWord'],
+                endWord=new_helper['endWord'])
+        ResultProxy = connection.execute(ins)
+    else:
+        # there is already a record,
+        # update it with the remaining information
+        if new_helper['startWord'] != ResultSet[0][3]:
+            # Update the record for id ResultSet[0][0]
+            udt = db.update(meeting_type_scrape_help).\
+                 where(meeting_type_scrape_help.columns.meetScrapeID == ResultSet[0][0]).\
+                 values(startWord=new_helper['startWord'],
+                        endWord=new_helper['endWord'])
+            ResultProxy = connection.execute(udt)
+
 
 # Populate Organisations
 for new_org in baseinfo.organisations:
@@ -233,10 +361,14 @@ for new_org in baseinfo.organisations:
     org_update(new_org=new_org)
 
 # Populate Representatives
-for new_rep in baseinfo.representatives:
+for org_reps in baseinfo.representatives:
+    for new_rep in org_reps['reps']:
     #newOrg = baseinfo.organisations[o]
-    rep_update(new_rep=new_rep)
+        rep_update(new_rep=new_rep, orgShortName=org_reps['orgShortName'])
 
 new_meet_url = baseinfo.meetingUrl[0]
-meetings_base(meet_url=new_meet_url)
-meeting_text()
+#meetings_base(meet_url=new_meet_url)
+#meeting_text()
+meet_rep_all_pop(meet_all=baseinfo.meetingRepAll)
+for h in baseinfo.meetingTypeScrapeHelp:
+    scrape_help_update(new_helper=h)

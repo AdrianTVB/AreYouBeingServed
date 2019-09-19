@@ -33,6 +33,9 @@ class Representative(Base):
     surname = Column(String(50))
     forename = Column(String(50))
     imageUrl = Column(String(200))
+    orgID = Column(Integer, ForeignKey('organisations.orgID'))
+    startDate = Column(Date())
+    endDate = Column(Date())
 
     def __repr__(self):
        return "<Representative(Forename='%s', Surname='%s', ImageUrl='%s')>" % (
@@ -100,6 +103,24 @@ class MeetingAttendance(Base):
     repID = Column(Integer, ForeignKey('representatives.repID'))
 
 
+class MeetingTypeScrapeHelper(Base):
+    __tablename__ = "meetingTypeScrapeHelper"
+
+    meetScrapeID = Column(Integer, primary_key=True)
+    meetTypeID = Column(Integer, ForeignKey('meetingTypes.meetTypeID'))
+    orgID = Column(Integer, ForeignKey('organisations.orgID'))
+    startWord = Column(String(50))
+    endWord = Column(String(50))
+
+
+class OrgRepRelationship(Base):
+    __tablename__ = "orgRepRelationship"
+
+    orgRepRelID = Column(Integer, primary_key=True)
+
+
+
 #Organisation.representatives = relationship("Representative", order_by=Representative.id, back_populates="organisation")
-#Base.metadata.create_all(engine)
+
+Base.metadata.create_all(engine)
 metadata.create_all(engine)

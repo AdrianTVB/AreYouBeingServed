@@ -61,7 +61,7 @@ with open(os.path.join(fileDir, fileName), "r") as f:
 attendText = subString(text=rawText, startWord=startWord, endWord=endWord)
 
 
-attendance = attendList(attend, surnameList))
+attendance = attendList(attendText, surnameList))
 
 
 

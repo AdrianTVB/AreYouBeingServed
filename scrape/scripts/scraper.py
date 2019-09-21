@@ -283,8 +283,11 @@ def meeting_text(fileDir="scrape/data/txt/scraped/"):
         #print(meet_txt)
         #get the recordID
         recID = str(m[0])
+        # Truncate filename to fit in field
+        str_max_len = 46 - len(recID)
+        f_name_full = mdate + org + meet_txt
         #concatomate into a filename
-        fname = mdate + org + meet_txt + recID + '.txt'
+        fname =  f_name_full[:str_max_len] + recID + '.txt'
         #read the url and type and then save as a text file
         if m[5] == 'html':
             html_to_txt(url=m[4],

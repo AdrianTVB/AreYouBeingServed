@@ -2,15 +2,19 @@
 #from sqlalchemy.ext.declarative import declarative_base
 #from sqlalchemy.orm import relationship
 from datetime import datetime
+import os.path
+import string
 
 import sqlalchemy as db
 from sqlalchemy.sql import and_
+from sqlalchemy import join
 
 import baseinfo
 import dbConnectionString
 
 from schedProc import meet_infocouncil_scrape
 from html_to_text import html_to_txt
+from minProc import attendList, subString
 
 #engine = db.create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
@@ -18,6 +22,8 @@ engine = db.create_engine(dbConnectionString.connection_string('sqlite'))
 
 connection = engine.connect()
 metadata = db.MetaData()
+
+
 organisations = db.Table('organisations',
                             metadata,
                             autoload=True,
@@ -44,6 +50,11 @@ meeting_rep_relationships = db.Table('meetingRepRelationships',
                             autoload_with=engine)
 
 meeting_type_scrape_help = db.Table('meetingTypeScrapeHelper',
+                            metadata,
+                            autoload=True,
+                            autoload_with=engine)
+
+meeting_attendance = db.Table('meetingAttendance',
                             metadata,
                             autoload=True,
                             autoload_with=engine)
@@ -355,6 +366,60 @@ def scrape_help_update(new_helper):
             ResultProxy = connection.execute(udt)
 
 
+def attendance_update():
+    # Get list of meetings with a text file
+    j = meetings.join(meeting_type_scrape_help,
+            and_(meeting_type_scrape_help.columns.orgID == meetings.columns.orgID,
+                meeting_type_scrape_help.columns.meetTypeID == meetings.columns.meetTypeID))
+    meet_qry = db.select([meetings,
+                        meeting_type_scrape_help.columns.startWord,
+                        meeting_type_scrape_help.columns.endWord]).\
+                        select_from(j).\
+                        where(and_(meetings.columns.minuteFile != None,
+                        meeting_type_scrape_help.columns.startWord != None,
+                        meeting_type_scrape_help.columns.endWord != None))
+    meet_prox = connection.execute(meet_qry)
+    meet_set = meet_prox.fetchall()
+    if not meet_set:
+        print("No results to process")
+        return
+    print(meet_set)
+    # iterate over the meetings and get the attendance.
+    for m in meet_set:
+        meet_id = m[0]
+        org_id = m[1]
+        meet_type_id = m[2]
+        # retrieve list of reps for the organisation
+        rep_q = db.select([representatives]).\
+          where(organisations.columns.orgID == org_id)
+        rep_p = connection.execute(rep_q)
+        rep_r = rep_p.fetchall()
+        rep = [r[1] for r in rep_r]
+        # extract attendance from the text
+        fileDir = "scrape/data/txt/scraped/"
+        f_name = m[7]
+        s_word = m[8]
+        e_word = m[9]
+        with open(os.path.join(fileDir, f_name), "r") as f:
+            raw_text = f.read()
+        attend_text = subString(text=raw_text, startWord=s_word, endWord=e_word)
+        attendance = attendList(attend_text, rep)
+        exist = db.select([meeting_attendance]).\
+          where(meeting_attendance.columns.meetID == meet_id)
+        ResultProxy = connection.execute(exist)
+        ResultSet = ResultProxy.fetchall()
+        # If it isn't then insert it
+        if not ResultSet:
+            # Iterate through all of the representatives, get their ID and insert
+            for a in attendance:
+                rep_inf = next(r for r in rep_r if r[1] == a)
+                ins = db.insert(meeting_attendance).\
+                        values(meetID=meet_id,
+                                repID=rep_inf[0])
+                ResultProxy = connection.execute(ins)
+
+
+
 # Populate Organisations
 for new_org in baseinfo.organisations:
     #newOrg = baseinfo.organisations[o]
@@ -372,3 +437,5 @@ new_meet_url = baseinfo.meetingUrl[0]
 meet_rep_all_pop(meet_all=baseinfo.meetingRepAll)
 for h in baseinfo.meetingTypeScrapeHelp:
     scrape_help_update(new_helper=h)
+
+attendance_update()

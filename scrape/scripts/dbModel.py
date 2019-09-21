@@ -7,7 +7,7 @@ import dbConnectionString
 
 #engine = create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = create_engine(dbConnectionString.connection_string('sqlite'))
+engine = create_engine(dbConnectionString.connection_string('dev'))
 
 Base = declarative_base()
 
@@ -92,7 +92,8 @@ class Meetings(Base):
     minuteFile = Column(String(50))
 
     organisation = relationship("Organisation", back_populates="meetings")
-    meetingType = relationship("MeetingType", back_populates='meetings')
+    meetingType = relationship("MeetingType", back_populates="meetings")
+    meetingTypeScrapeHelper = relationship("MeetingTypeScrapeHelper", back_populates="meetings")
 
 
 class MeetingAttendance(Base):
@@ -101,6 +102,10 @@ class MeetingAttendance(Base):
     meetAttID = Column(Integer, primary_key=True)
     meetID = Column(Integer, ForeignKey('meetings.meetID'))
     repID = Column(Integer, ForeignKey('representatives.repID'))
+
+    meetings = relationship("Meeting", back_populates="meetingAttendance")
+    representatives = relationship("Representative", back_populates="meetingAttendance")
+
 
 
 class MeetingTypeScrapeHelper(Base):
@@ -111,12 +116,6 @@ class MeetingTypeScrapeHelper(Base):
     orgID = Column(Integer, ForeignKey('organisations.orgID'))
     startWord = Column(String(50))
     endWord = Column(String(50))
-
-
-class OrgRepRelationship(Base):
-    __tablename__ = "orgRepRelationship"
-
-    orgRepRelID = Column(Integer, primary_key=True)
 
 
 

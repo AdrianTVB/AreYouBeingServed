@@ -32,7 +32,7 @@ def connection_string(type='sqlite'):
         #params = urllib.parse.quote_plus("DRIVER={SQL Server Native Client 17.0};"
         params = urllib.parse.quote_plus("DRIVER=" + driver + ";"
                                  "SERVER=" + server + ";"
-                                 "PORT=1433;"
+                                 #"PORT=1433;"
                                  "DATABASE=" + dbname + ";"
                                  "UID="+ username + ";"
                                  "PWD=" + password)

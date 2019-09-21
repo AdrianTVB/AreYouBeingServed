@@ -46,22 +46,22 @@ def attendList(minuteAttend, names):
     return(list(nameSet.intersection(minSet)))
 
 #variables
-startWord = "present:"
-endWord = "attendance:"
-surnameList = ["Hazlehurst", "Barber", "Dixon", "Harvey", "Heaps", "Kerr", "Lawson", "Lyons", "Nixon", "O’Keefe", "Poulain", "Redstone", "Schollum", "Travers", "Watkins"]
+#startWord = "present:"
+#endWord = "attendance:"
+#surnameList = ["Hazlehurst", "Barber", "Dixon", "Harvey", "Heaps", "Kerr", "Lawson", "Lyons", "Nixon", "O’Keefe", "Poulain", "Redstone", "Schollum", "Travers", "Watkins"]
 
 # Read in get_text
-fileDir = "scrape/data/txt/"
-fileName = "20190822_hdc_Council.txt"
+#fileDir = "scrape/data/txt/"
+#fileName = "20190822_hdc_Council.txt"
 
-with open(os.path.join(fileDir, fileName), "r") as f:
-    rawText = f.read()
-
-
-attendText = subString(text=rawText, startWord=startWord, endWord=endWord)
+#with open(os.path.join(fileDir, fileName), "r") as f:
+#    rawText = f.read()
 
 
-attendance = attendList(attendText, surnameList))
+#attendText = subString(text=rawText, startWord=startWord, endWord=endWord)
+
+
+#attendance = attendList(attendText, surnameList))
 
 
 

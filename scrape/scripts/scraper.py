@@ -4,6 +4,7 @@
 from datetime import datetime
 import os.path
 import string
+import unidecode
 
 import sqlalchemy as db
 from sqlalchemy.sql import and_
@@ -18,11 +19,12 @@ from minProc import attendList, subString
 
 #engine = db.create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = db.create_engine(dbConnectionString.connection_string('sqlite'))
+engine = db.create_engine(dbConnectionString.connection_string('dev'))
 
 connection = engine.connect()
 metadata = db.MetaData()
 
+fileDir="scrape/data/txt/scraped/dev/"
 
 organisations = db.Table('organisations',
                             metadata,
@@ -194,6 +196,8 @@ def meetings_base(meet_url=None):
             continue
         # Create new meeting types as required
         # Check if type in table
+        # remove macrons from string first
+        m['Type'] = unidecode.unidecode(m['Type'])
         meet_r = meet_type_query(type=m['Type'])
         # If not insert it
         if not meet_r:
@@ -201,6 +205,8 @@ def meetings_base(meet_url=None):
             ResultProxy = connection.execute(ins)
             meet_r = meet_type_query(type=m['Type'])
         # Get the meetingTypeID
+        print("Meeting Type ID")
+        print(meet_r)
         m_type_id = meet_r[0][0]
         # Store the url for the html minutes in preference to the pdf one if both
         # url is a list with Type and url
@@ -243,7 +249,7 @@ def meetings_base(meet_url=None):
                             minuteType=ou['Type'])
                 update = connection.execute(udt)
 
-def meeting_text():
+def meeting_text(fileDir="scrape/data/txt/scraped/"):
     # Get a list of meetings that have a url and no filename
     meet_qry = db.select([meetings]).\
       where(and_(meetings.columns.minuteUrl != None,
@@ -282,7 +288,7 @@ def meeting_text():
         #read the url and type and then save as a text file
         if m[5] == 'html':
             html_to_txt(url=m[4],
-                        outputDir="scrape/data/txt/scraped/",
+                        outputDir=fileDir,
                         outputFile=fname)
             print(fname)
             #add the filename to the database
@@ -366,7 +372,7 @@ def scrape_help_update(new_helper):
             ResultProxy = connection.execute(udt)
 
 
-def attendance_update():
+def attendance_update(fileDir="scrape/data/txt/scraped/"):
     # Get list of meetings with a text file
     j = meetings.join(meeting_type_scrape_help,
             and_(meeting_type_scrape_help.columns.orgID == meetings.columns.orgID,
@@ -396,7 +402,7 @@ def attendance_update():
         rep_r = rep_p.fetchall()
         rep = [r[1] for r in rep_r]
         # extract attendance from the text
-        fileDir = "scrape/data/txt/scraped/"
+        #fileDir = "scrape/data/txt/scraped/"
         f_name = m[7]
         s_word = m[8]
         e_word = m[9]
@@ -432,10 +438,10 @@ for org_reps in baseinfo.representatives:
         rep_update(new_rep=new_rep, orgShortName=org_reps['orgShortName'])
 
 new_meet_url = baseinfo.meetingUrl[0]
-#meetings_base(meet_url=new_meet_url)
-#meeting_text()
+meetings_base(meet_url=new_meet_url)
+meeting_text(fileDir=fileDir)
 meet_rep_all_pop(meet_all=baseinfo.meetingRepAll)
 for h in baseinfo.meetingTypeScrapeHelp:
     scrape_help_update(new_helper=h)
 
-attendance_update()
+attendance_update(fileDir=fileDir)

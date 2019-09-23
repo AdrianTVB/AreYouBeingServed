@@ -106,7 +106,7 @@ def org_update(new_org):
         print("Dictionary must contain an 'orgName'")
         return -1
     # Check if organisation already in the Table
-    print("Checking if %s already loaded.", new_org['orgName'])
+    print("Checking if %s already loaded." % new_org['orgName'])
     exist = db.select([organisations]).\
       where(organisations.columns.orgName == new_org['orgName'])
     ResultProxy = connection.execute(exist)
@@ -139,7 +139,7 @@ def rep_update(new_rep, orgShortName, start=None, end=None):
         return -1
     # Check if representative already in the Table for the org and timeperiod
     # Look up the organisation ID for the shortname provided
-    print("Checking if %s already loaded.", new_rep['Surname'])
+    print("Checking if %s already loaded." % new_rep['Surname'])
     org_id = org_id_lookup(shortName=orgShortName)
     exist = db.select([representatives]).\
       where(and_(representatives.columns.surname == new_rep['Surname'],
@@ -205,8 +205,8 @@ def meetings_base(meet_url=None):
             ResultProxy = connection.execute(ins)
             meet_r = meet_type_query(type=m['Type'])
         # Get the meetingTypeID
-        print("Meeting Type ID")
-        print(meet_r)
+        #print("Meeting Type ID")
+        #print(meet_r)
         m_type_id = meet_r[0][0]
         # Store the url for the html minutes in preference to the pdf one if both
         # url is a list with Type and url
@@ -228,7 +228,7 @@ def meetings_base(meet_url=None):
                 meetings.columns.meetDate == date_obj))
         meet_prox = connection.execute(meet_qry)
         meet_set = meet_prox.fetchall()
-        print(meet_set)
+        #print(meet_set)
         # If it isn't then insert it
         if not meet_set:
             ins = db.insert(meetings).\
@@ -293,7 +293,7 @@ def meeting_text(fileDir="scrape/data/txt/scraped/"):
             html_to_txt(url=m[4],
                         outputDir=fileDir,
                         outputFile=fname)
-            print("Saving %s", fname)
+            print("Saving %s" % fname)
             #add the filename to the database
             udt = db.update(meetings).\
                   where(meetings.columns.meetID == m[0]).\

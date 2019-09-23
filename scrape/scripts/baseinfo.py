@@ -377,6 +377,30 @@ meetingTypeScrapeHelp = [
         "meet_type": "Council",
         "startWord": "present:",
         "endWord": "attendance:"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Council - Extraordinary",
+        "startWord": "present:",
+        "endWord": "attendance:"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Finance and Risk Committee",
+        "startWord": "present:",
+        "endWord": "attendance:"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Works and Services Committee",
+        "startWord": "present:",
+        "endWord": "attendance:"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Strategy Planning and Partnerships Committee",
+        "startWord": "present:",
+        "endWord": "also present:"
     }
 ]
 

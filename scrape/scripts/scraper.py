@@ -24,7 +24,8 @@ engine = db.create_engine(dbConnectionString.connection_string('sqlite'))
 connection = engine.connect()
 metadata = db.MetaData()
 
-fileDir="scrape/data/txt/scraped/dev/"
+#fileDir="scrape/data/txt/scraped/dev/"
+fileDir="scrape/data/txt/scraped/"
 
 organisations = db.Table('organisations',
                             metadata,

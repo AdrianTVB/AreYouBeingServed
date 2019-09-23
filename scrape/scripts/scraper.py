@@ -106,20 +106,19 @@ def org_update(new_org):
         print("Dictionary must contain an 'orgName'")
         return -1
     # Check if organisation already in the Table
+    print("Checking if %s already loaded.", new_org['orgName'])
     exist = db.select([organisations]).\
       where(organisations.columns.orgName == new_org['orgName'])
     ResultProxy = connection.execute(exist)
     ResultSet = ResultProxy.fetchall()
-
-    print(len(ResultSet))
-    print(ResultSet)
-
     # If it isn't then insert it
     if not ResultSet:
+        print("Loading to database.")
         ins = db.insert(organisations).\
           values(orgName=new_org['orgName'], shortName=new_org['shortName'])
         ResultProxy = connection.execute(ins)
     else:
+        print("Updating record.")
         # there is already a record,
         # update it with the remaining information
         if new_org['shortName']:
@@ -140,18 +139,16 @@ def rep_update(new_rep, orgShortName, start=None, end=None):
         return -1
     # Check if representative already in the Table for the org and timeperiod
     # Look up the organisation ID for the shortname provided
+    print("Checking if %s already loaded.", new_rep['Surname'])
     org_id = org_id_lookup(shortName=orgShortName)
     exist = db.select([representatives]).\
       where(and_(representatives.columns.surname == new_rep['Surname'],
                 representatives.columns.orgID == org_id))
     ResultProxy = connection.execute(exist)
     ResultSet = ResultProxy.fetchall()
-
-    print(len(ResultSet))
-    print(ResultSet)
-
     # If it isn't then insert it
     if not ResultSet:
+        print("Loading record to database.")
         ins = db.insert(representatives).\
           values(surname=new_rep['Surname'],
                 forename=new_rep['Forename'],
@@ -162,6 +159,7 @@ def rep_update(new_rep, orgShortName, start=None, end=None):
         # there is already a record,
         # so update it with the remaining information
         if new_rep['Surname']:
+            print("Updating database.")
             # read the resultset to get the id
             # then update the record with that ID
             if new_rep['Forename'] != ResultSet[0][2] or\
@@ -180,11 +178,12 @@ def meetings_base(meet_url=None):
         return -1
     # get the organisation ID corresponding to org_short
     org_id = org_id_lookup(shortName=meet_url['org_short'])
-
+    print("Reading the meetings schedule for %s.", meet_url['org_short'])
     # read the meeting schedule into a variable
     meet_l = meet_infocouncil_scrape(url=meet_url['meet_sched_url'])
     #print(meet_l)
     # iterate over the list and populate the meetings table.
+    print("Loading schedule to database.")
     for m in meet_l:
         print(m)
         if not m:
@@ -261,9 +260,9 @@ def meeting_text(fileDir="scrape/data/txt/scraped/"):
         print("No results to process")
         return
     # Iterate over the results
+    print("Creating text files.")
     for m in meet_set:
-        print(m)
-
+        #print(m)
         #extract the date
         mdate = m[3].strftime("%Y%m%d")
         #identify the shortname for the organisations
@@ -294,7 +293,7 @@ def meeting_text(fileDir="scrape/data/txt/scraped/"):
             html_to_txt(url=m[4],
                         outputDir=fileDir,
                         outputFile=fname)
-            print(fname)
+            print("Saving %s", fname)
             #add the filename to the database
             udt = db.update(meetings).\
                   where(meetings.columns.meetID == m[0]).\
@@ -308,6 +307,7 @@ def meet_rep_all_pop(meet_all=None, start_date=None, end_date=None):
                are expected to attend is required")
         return -1
     # Iterate through the file
+    print("Loading expected attendance (all councillors).")
     for e in meet_all:
         # Identify the organisation and meeting type
         # get the organisation ID corresponding to org_short
@@ -327,7 +327,7 @@ def meet_rep_all_pop(meet_all=None, start_date=None, end_date=None):
                     meeting_rep_relationships.columns.meetTypeID == meet_type_id))
             meetrep_prox = connection.execute(meetrep_qry)
             meetrep_set = meetrep_prox.fetchall()
-            print(meetrep_set)
+            #print(meetrep_set)
             # If it isn't then insert it
             if not meetrep_set:
                 ins = db.insert(meeting_rep_relationships).\
@@ -343,6 +343,7 @@ def scrape_help_update(new_helper):
         print("Dictionary must contain an 'org_short' and 'meet_type'")
         return -1
     # Lookup the org_id
+    print("Loading start and stop text triggers.")
     org_id = org_id_lookup(shortName=new_helper['org_short'])
     # Lookup the meet_type_id
     meet_type_id = meet_type_id_lookup(meet_type_name=new_helper['meet_type'])
@@ -352,10 +353,6 @@ def scrape_help_update(new_helper):
                 meeting_type_scrape_help.columns.meetTypeID == meet_type_id))
     ResultProxy = connection.execute(exist)
     ResultSet = ResultProxy.fetchall()
-
-    print(len(ResultSet))
-    print(ResultSet)
-
     # If it isn't then insert it
     if not ResultSet:
         ins = db.insert(meeting_type_scrape_help).\
@@ -393,7 +390,7 @@ def attendance_update(fileDir="scrape/data/txt/scraped/"):
     if not meet_set:
         print("No results to process")
         return
-    print(meet_set)
+    print("Updating attendance.")
     # iterate over the meetings and get the attendance.
     for m in meet_set:
         meet_id = m[0]
@@ -441,10 +438,14 @@ for org_reps in baseinfo.representatives:
     #newOrg = baseinfo.organisations[o]
         rep_update(new_rep=new_rep, orgShortName=org_reps['orgShortName'])
 
-new_meet_url = baseinfo.meetingUrl[0]
-meetings_base(meet_url=new_meet_url)
+#new_meet_url = baseinfo.meetingUrl[0]
+for new_meet_url in baseinfo.meetingUrl:
+    meetings_base(meet_url=new_meet_url)
+
 meeting_text(fileDir=fileDir)
+
 meet_rep_all_pop(meet_all=baseinfo.meetingRepAll)
+
 for h in baseinfo.meetingTypeScrapeHelp:
     scrape_help_update(new_helper=h)
 

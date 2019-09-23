@@ -385,5 +385,25 @@ meetingRepAll = [
     {
         "org_short": "HDC",
         "meet_type": "Council"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Finance and Risk Committee"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Council Supplementary"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Council - Extraordinary"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Works and Services Committee"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Strategy Planning and Partnerships Committee"
     }
 ]

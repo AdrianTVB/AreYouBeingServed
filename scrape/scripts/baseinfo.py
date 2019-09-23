@@ -181,7 +181,171 @@ representatives = [
                 "ImageUrl": "https://www.napier.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Councillor-Apiata-Tapine-Oct-2016.jpg"
             }
         ]
-    }
+    },
+    {
+        "orgShortName": "HBRC",
+        "fromDate": "",
+        "toDate": "",
+        "reps": [
+            {
+                "Surname": "Graham",
+                "Forename": "Rex",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5437.jpg"
+            },
+            {
+                "Surname": "Barker",
+                "Forename": "Rick",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5416.jpg"
+            },
+            {
+                "Surname": "Dick",
+                "Forename": "Alan",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-Alan-Dick-cropped.jpg"
+            },
+            {
+                "Surname": "Belford",
+                "Forename": "Tom",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5413.jpg"
+            },
+            {
+                "Surname": "Wilson",
+                "Forename": "Fenton",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5404.jpg"
+            },
+            {
+                "Surname": "Hewitt",
+                "Forename": "Debbie",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5432.jpg"
+            },
+            {
+                "Surname": "Beaven",
+                "Forename": "Peter",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5409.jpg"
+            },
+            {
+                "Surname": "Kirton",
+                "Forename": "Neil",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-A77P5460.jpg"
+            },
+            {
+                "Surname": "Bailey",
+                "Forename": "Paul",
+                "ImageUrl": "https://www.hbrc.govt.nz/assets/Uploads/Councillors/_resampled/FillWyI4MDAiLCI4MDAiXQ-Paul-Bailey-cropped.jpg"
+            }
+        ]
+    },
+    {
+        "orgShortName": "HBDHB",
+        "fromDate": "",
+        "toDate": "",
+        "reps": [
+            {"Surname": "Atkinson", "Forename": "Kevin", "ImageUrl": ""},
+            {"Surname": "Arnott", "Forename": "Barbara", "ImageUrl": ""},
+            {"Surname": "Flood", "Forename": "Hine", "ImageUrl": ""},
+            {"Surname": "Druzianic", "Forename": "Dan", "ImageUrl": ""},
+            {"Surname": "Dunkerley", "Forename": "Peter", "ImageUrl": ""},
+            {"Surname": "Apatu", "Forename": "Ana", "ImageUrl": ""},
+            {"Surname": "Francis", "Forename": "Helen", "ImageUrl": ""},
+            {"Surname": "Kirton", "Forename": "Diana", "ImageUrl": ""},
+            {"Surname": "Poulain", "Forename": "Jacoby", "ImageUrl": ""},
+            {"Surname": "Skipworth", "Forename": "Heather", "ImageUrl": ""},
+            {"Surname": "Tomoana", "Forename": "Ngahiwi", "ImageUrl": ""}
+        ]
+    },
+    {
+        "orgShortName": "CHBDC",
+        "fromDate": "",
+        "toDate": "",
+        "reps": [
+            {
+                "Surname": "Walker",
+                "Forename": "Alex",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Mayor-Alex-Walker.jpg"
+            },
+            {
+                "Surname": "Sharp",
+                "Forename": "Ian",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Ian-Sharp.jpg"
+            },
+            {
+                "Surname": "Aitken",
+                "Forename": "Tim",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Tim-Aitken.jpg"
+            },
+            {
+                "Surname": "Annand",
+                "Forename": "Kelly",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Kelly-Annand-2.jpg"
+            },
+            {
+                "Surname": "Burne-Field",
+                "Forename": "Shelley",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Shelley-Burne-Field.jpg"
+            },
+            {
+                "Surname": "Chote",
+                "Forename": "Tim",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Tim-Chote.jpg"
+            },
+            {
+                "Surname": "Minehan",
+                "Forename": "Gerard",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Gerard-Minehan.jpg"
+            },
+            {
+                "Surname": "Muggeridge",
+                "Forename": "Brent",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Brent-Muggeridge.jpg"
+            },
+            {
+                "Surname": "Tennent",
+                "Forename": "David",
+                "ImageUrl": "https://www.chbdc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-David-Tennent.jpg"
+            }
+        ]
+    },
+    {
+        "orgShortName": "WDC",
+        "fromDate": "",
+        "toDate": "",
+        "reps": [
+            {
+                "Surname": "Little",
+                "Forename": "Craig",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Craig-Little.jpg"
+            },
+            {
+                "Surname": "Eaglesome-Karekare",
+                "Forename": "Denise",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Denise-Eaglesome-Karekare.jpg"
+            },
+            {
+                "Surname": "Lambert",
+                "Forename": "Charlie",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Charlie-Lambert.jpg"
+            },
+            {
+                "Surname": "Bird",
+                "Forename": "Michael",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Mike-Bird.jpg"
+            },
+            {
+                "Surname": "Flood",
+                "Forename": "Hine",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Hine-Flood.jpg"
+            },
+            {
+                "Surname": "Johansen",
+                "Forename": "Michael",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Min-Johansen.jpg"
+            },
+            {
+                "Surname": "Harker",
+                "Forename": "Jeremy",
+                "ImageUrl": "https://www.wairoadc.govt.nz/assets/Contacts/_resampled/FillWyI4MDAiLCI4MDAiXQ-Jeremy-Harker.jpg"
+            }
+        ]
+    },
 ]
 
 meetingUrl = [
@@ -192,6 +356,18 @@ meetingUrl = [
     {
         "org_short": "NCC",
         "meet_sched_url": "http://napier.infocouncil.biz/"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_sched_url": "http://centralhawkesbay.infocouncil.biz/"
+    },
+    {
+        "org_short": "WDC",
+        "meet_sched_url": "http://wairoa.infocouncil.biz/"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_sched_url": "http://hawkesbay.infocouncil.biz/"
     }
 ]
 

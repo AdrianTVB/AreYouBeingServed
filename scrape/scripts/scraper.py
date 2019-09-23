@@ -19,7 +19,7 @@ from minProc import attendList, subString
 
 #engine = db.create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = db.create_engine(dbConnectionString.connection_string('dev'))
+engine = db.create_engine(dbConnectionString.connection_string('sqlite'))
 
 connection = engine.connect()
 metadata = db.MetaData()

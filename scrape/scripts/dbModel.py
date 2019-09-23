@@ -7,7 +7,7 @@ import dbConnectionString
 
 #engine = create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = create_engine(dbConnectionString.connection_string('dev'))
+engine = create_engine(dbConnectionString.connection_string('sqlite'))
 
 Base = declarative_base()
 
@@ -42,15 +42,15 @@ class Representative(Base):
                             self.forename, self.surname, self.imageUrl)
 
 
-class Role(Base):
-    __tablename__ = 'roles'
+#class Role(Base):
+#    __tablename__ = 'roles'
 
-    roleID = Column(Integer, primary_key=True)
-    roleName = Column(String(50))
+#    roleID = Column(Integer, primary_key=True)
+#    roleName = Column(String(50))
 
-    def __repr__(self):
-       return "<Role(Name='%s')>" % (
-                            self.roleName)
+#    def __repr__(self):
+#       return "<Role(Name='%s')>" % (
+#                            self.roleName)
 
 
 class MeetingType(Base):

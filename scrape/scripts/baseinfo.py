@@ -3,27 +3,39 @@
 organisations = [
     {
         "orgName": "Napier City Council",
-        "shortName": "NCC"
+        "shortName": "NCC",
+        "mapName": "Napier City",
+        "mapID": "031"
     },
     {
         "orgName": "Hastings District Council",
-        "shortName": "HDC"
+        "shortName": "HDC",
+        "mapName": "Hastings District",
+        "mapID": "030"
     },
     {
         "orgName": "Central Hawke's Bay District Council",
-        "shortName": "CHBDC"
+        "shortName": "CHBDC",
+        "mapName": "Central Hawke's Bay District",
+        "mapID": "032"
     },
     {
         "orgName": "Hawke's Bay Regional Council",
-        "shortName": "HBRC"
+        "shortName": "HBRC",
+        "mapName": "Hawke's Bay Region",
+        "mapID": "06"
     },
     {
         "orgName": "Wairoa District Council",
-        "shortName": "WDC"
+        "shortName": "WDC",
+        "mapName": "Wairoa District",
+        "mapID": "029"
     },
     {
         "orgName": "Hawke's Bay District Health Board",
-        "shortName": "HBDHB"
+        "shortName": "HBDHB",
+        "mapName": "",
+        "mapID": ""
     }
 ]
 

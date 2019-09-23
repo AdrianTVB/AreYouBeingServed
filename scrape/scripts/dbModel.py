@@ -7,7 +7,7 @@ import dbConnectionString
 
 #engine = create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = create_engine(dbConnectionString.connection_string('sqlite'))
+engine = create_engine(dbConnectionString.connection_string('dev'))
 
 Base = declarative_base()
 
@@ -20,6 +20,8 @@ class Organisation(Base):
      orgID = Column(Integer, primary_key=True)
      orgName = Column(String(100))
      shortName = Column(String(50))
+     mapName = Column(String(100))
+     mapID = Column(String(10))
 
      def __repr__(self):
         return "<Organisation(orgName='%s', shortName='%s')>" % (

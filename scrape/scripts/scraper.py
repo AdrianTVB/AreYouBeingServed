@@ -19,13 +19,13 @@ from minProc import attendList, subString
 
 #engine = db.create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = db.create_engine(dbConnectionString.connection_string('sqlite'))
+engine = db.create_engine(dbConnectionString.connection_string('dev'))
 
 connection = engine.connect()
 metadata = db.MetaData()
 
-#fileDir="scrape/data/txt/scraped/dev/"
-fileDir="scrape/data/txt/scraped/"
+fileDir="scrape/data/txt/scraped/dev/"
+#fileDir="scrape/data/txt/scraped/"
 
 organisations = db.Table('organisations',
                             metadata,
@@ -115,7 +115,10 @@ def org_update(new_org):
     if not ResultSet:
         print("Loading to database.")
         ins = db.insert(organisations).\
-          values(orgName=new_org['orgName'], shortName=new_org['shortName'])
+          values(orgName=new_org['orgName'],
+                shortName=new_org['shortName'],
+                mapName=new_org['mapName'],
+                mapID=new_org['mapID'])
         ResultProxy = connection.execute(ins)
     else:
         print("Updating record.")
@@ -124,11 +127,15 @@ def org_update(new_org):
         if new_org['shortName']:
             # read the resultset to get the id
             # then update the record with that ID
-            if new_org['shortName'] != ResultSet[0][2]:
+            if new_org['shortName'] != ResultSet[0][2] or\
+               new_org['mapName'] != ResultSet[0][3] or\
+               new_org['mapID'] != ResultSet[0][4]:
                 # Update the record for id ResultSet[0][0]
                 udt = db.update(organisations).\
                   where(organisations.columns.orgID == ResultSet[0][0]).\
-                  values(shortName=new_org['shortName'])
+                  values(shortName=new_org['shortName'],
+                        mapName=new_org['mapName'],
+                        mapID=new_org['mapID'])
                 ResultProxy = connection.execute(udt)
 
 

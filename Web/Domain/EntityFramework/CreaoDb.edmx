@@ -5,219 +5,519 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="creo_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Attendance">
+        <EntityType Name="meetingAttendance">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="meetAttID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OfficialId" Type="int" Nullable="false" />
-          <Property Name="MeetingId" Type="int" Nullable="false" />
+          <Property Name="meetAttID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="meetID" Type="int" />
+          <Property Name="repID" Type="int" />
         </EntityType>
-        <EntityType Name="Meeting">
+        <EntityType Name="meetingRepRelationships">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="relID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="datetime" />
-          <Property Name="Name" Type="varchar(max)" />
-          <Property Name="OrganisationId" Type="int" Nullable="false" />
+          <Property Name="relID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orgID" Type="int" />
+          <Property Name="repID" Type="int" />
+          <Property Name="meetTypeID" Type="int" />
+          <Property Name="startDate" Type="datetime" />
+          <Property Name="endDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Official">
+        <EntityType Name="meetings">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="meetID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar(max)" />
-          <Property Name="OrganisationId" Type="int" />
+          <Property Name="meetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orgID" Type="int" />
+          <Property Name="meetTypeID" Type="int" />
+          <Property Name="meetDate" Type="datetime" />
+          <Property Name="minuteUrl" Type="varchar" MaxLength="200" />
+          <Property Name="minuteType" Type="varchar" MaxLength="4" />
+          <Property Name="minuteText" Type="varchar(max)" />
+          <Property Name="minuteFile" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Organisation">
+        <EntityType Name="meetingTypes">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="meetTypeID" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="meetTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="meetName" Type="varchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Meeting__Organis__571DF1D5">
-          <End Role="Organisation" Type="Self.Organisation" Multiplicity="1" />
-          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+        <EntityType Name="meetingTypeScrapeHelper">
+          <Key>
+            <PropertyRef Name="meetScrapeID" />
+          </Key>
+          <Property Name="meetScrapeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="meetTypeID" Type="int" />
+          <Property Name="orgID" Type="int" />
+          <Property Name="startWord" Type="varchar" MaxLength="50" />
+          <Property Name="endWord" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="organisations">
+          <Key>
+            <PropertyRef Name="orgID" />
+          </Key>
+          <Property Name="orgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orgName" Type="varchar" MaxLength="100" />
+          <Property Name="shortName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="representatives">
+          <Key>
+            <PropertyRef Name="repID" />
+          </Key>
+          <Property Name="repID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" />
+          <Property Name="forename" Type="varchar" MaxLength="50" />
+          <Property Name="imageUrl" Type="varchar" MaxLength="200" />
+          <Property Name="orgID" Type="int" />
+          <Property Name="startDate" Type="datetime" />
+          <Property Name="endDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="roleID" />
+          </Key>
+          <Property Name="roleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__meetingAt__meetI__2B0A656D">
+          <End Role="meetings" Type="Self.meetings" Multiplicity="0..1" />
+          <End Role="meetingAttendance" Type="Self.meetingAttendance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Organisation">
-              <PropertyRef Name="Id" />
+            <Principal Role="meetings">
+              <PropertyRef Name="meetID" />
             </Principal>
-            <Dependent Role="Meeting">
-              <PropertyRef Name="OrganisationId" />
+            <Dependent Role="meetingAttendance">
+              <PropertyRef Name="meetID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Attendance_Meeting">
-          <End Role="Meeting" Type="Self.Meeting" Multiplicity="1" />
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+        <Association Name="FK__meetingAt__repID__2BFE89A6">
+          <End Role="representatives" Type="Self.representatives" Multiplicity="0..1" />
+          <End Role="meetingAttendance" Type="Self.meetingAttendance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Meeting">
-              <PropertyRef Name="Id" />
+            <Principal Role="representatives">
+              <PropertyRef Name="repID" />
             </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="MeetingId" />
+            <Dependent Role="meetingAttendance">
+              <PropertyRef Name="repID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Attendance_Official">
-          <End Role="Official" Type="Self.Official" Multiplicity="1" />
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+        <Association Name="FK__meetingRe__meetT__282DF8C2">
+          <End Role="meetingTypes" Type="Self.meetingTypes" Multiplicity="0..1" />
+          <End Role="meetingRepRelationships" Type="Self.meetingRepRelationships" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Official">
-              <PropertyRef Name="Id" />
+            <Principal Role="meetingTypes">
+              <PropertyRef Name="meetTypeID" />
             </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="OfficialId" />
+            <Dependent Role="meetingRepRelationships">
+              <PropertyRef Name="meetTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Official_Organisation">
-          <End Role="Organisation" Type="Self.Organisation" Multiplicity="0..1" />
-          <End Role="Official" Type="Self.Official" Multiplicity="*" />
+        <Association Name="FK__meetingRe__orgID__2645B050">
+          <End Role="organisations" Type="Self.organisations" Multiplicity="0..1" />
+          <End Role="meetingRepRelationships" Type="Self.meetingRepRelationships" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Organisation">
-              <PropertyRef Name="Id" />
+            <Principal Role="organisations">
+              <PropertyRef Name="orgID" />
             </Principal>
-            <Dependent Role="Official">
-              <PropertyRef Name="OrganisationId" />
+            <Dependent Role="meetingRepRelationships">
+              <PropertyRef Name="orgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetingRe__repID__2739D489">
+          <End Role="representatives" Type="Self.representatives" Multiplicity="0..1" />
+          <End Role="meetingRepRelationships" Type="Self.meetingRepRelationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="representatives">
+              <PropertyRef Name="repID" />
+            </Principal>
+            <Dependent Role="meetingRepRelationships">
+              <PropertyRef Name="repID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetings__meetTy__1F98B2C1">
+          <End Role="meetingTypes" Type="Self.meetingTypes" Multiplicity="0..1" />
+          <End Role="meetings" Type="Self.meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="meetingTypes">
+              <PropertyRef Name="meetTypeID" />
+            </Principal>
+            <Dependent Role="meetings">
+              <PropertyRef Name="meetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetings__orgID__1EA48E88">
+          <End Role="organisations" Type="Self.organisations" Multiplicity="0..1" />
+          <End Role="meetings" Type="Self.meetings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organisations">
+              <PropertyRef Name="orgID" />
+            </Principal>
+            <Dependent Role="meetings">
+              <PropertyRef Name="orgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetingTy__meetT__22751F6C">
+          <End Role="meetingTypes" Type="Self.meetingTypes" Multiplicity="0..1" />
+          <End Role="meetingTypeScrapeHelper" Type="Self.meetingTypeScrapeHelper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="meetingTypes">
+              <PropertyRef Name="meetTypeID" />
+            </Principal>
+            <Dependent Role="meetingTypeScrapeHelper">
+              <PropertyRef Name="meetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetingTy__orgID__236943A5">
+          <End Role="organisations" Type="Self.organisations" Multiplicity="0..1" />
+          <End Role="meetingTypeScrapeHelper" Type="Self.meetingTypeScrapeHelper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organisations">
+              <PropertyRef Name="orgID" />
+            </Principal>
+            <Dependent Role="meetingTypeScrapeHelper">
+              <PropertyRef Name="orgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__represent__orgID__1BC821DD">
+          <End Role="organisations" Type="Self.organisations" Multiplicity="0..1" />
+          <End Role="representatives" Type="Self.representatives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organisations">
+              <PropertyRef Name="orgID" />
+            </Principal>
+            <Dependent Role="representatives">
+              <PropertyRef Name="orgID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="creo_dbModelStoreContainer">
-          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Official" EntityType="Self.Official" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Organisation" EntityType="Self.Organisation" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Meeting__Organis__571DF1D5" Association="Self.FK__Meeting__Organis__571DF1D5">
-            <End Role="Organisation" EntitySet="Organisation" />
-            <End Role="Meeting" EntitySet="Meeting" />
+          <EntitySet Name="meetingAttendance" EntityType="Self.meetingAttendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="meetingRepRelationships" EntityType="Self.meetingRepRelationships" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="meetings" EntityType="Self.meetings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="meetingTypes" EntityType="Self.meetingTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="meetingTypeScrapeHelper" EntityType="Self.meetingTypeScrapeHelper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="organisations" EntityType="Self.organisations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="representatives" EntityType="Self.representatives" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__meetingAt__meetI__2B0A656D" Association="Self.FK__meetingAt__meetI__2B0A656D">
+            <End Role="meetings" EntitySet="meetings" />
+            <End Role="meetingAttendance" EntitySet="meetingAttendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_Meeting" Association="Self.FK_Attendance_Meeting">
-            <End Role="Meeting" EntitySet="Meeting" />
-            <End Role="Attendance" EntitySet="Attendance" />
+          <AssociationSet Name="FK__meetingAt__repID__2BFE89A6" Association="Self.FK__meetingAt__repID__2BFE89A6">
+            <End Role="representatives" EntitySet="representatives" />
+            <End Role="meetingAttendance" EntitySet="meetingAttendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_Official" Association="Self.FK_Attendance_Official">
-            <End Role="Official" EntitySet="Official" />
-            <End Role="Attendance" EntitySet="Attendance" />
+          <AssociationSet Name="FK__meetingRe__meetT__282DF8C2" Association="Self.FK__meetingRe__meetT__282DF8C2">
+            <End Role="meetingTypes" EntitySet="meetingTypes" />
+            <End Role="meetingRepRelationships" EntitySet="meetingRepRelationships" />
           </AssociationSet>
-          <AssociationSet Name="FK_Official_Organisation" Association="Self.FK_Official_Organisation">
-            <End Role="Organisation" EntitySet="Organisation" />
-            <End Role="Official" EntitySet="Official" />
+          <AssociationSet Name="FK__meetingRe__orgID__2645B050" Association="Self.FK__meetingRe__orgID__2645B050">
+            <End Role="organisations" EntitySet="organisations" />
+            <End Role="meetingRepRelationships" EntitySet="meetingRepRelationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetingRe__repID__2739D489" Association="Self.FK__meetingRe__repID__2739D489">
+            <End Role="representatives" EntitySet="representatives" />
+            <End Role="meetingRepRelationships" EntitySet="meetingRepRelationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetings__meetTy__1F98B2C1" Association="Self.FK__meetings__meetTy__1F98B2C1">
+            <End Role="meetingTypes" EntitySet="meetingTypes" />
+            <End Role="meetings" EntitySet="meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetings__orgID__1EA48E88" Association="Self.FK__meetings__orgID__1EA48E88">
+            <End Role="organisations" EntitySet="organisations" />
+            <End Role="meetings" EntitySet="meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetingTy__meetT__22751F6C" Association="Self.FK__meetingTy__meetT__22751F6C">
+            <End Role="meetingTypes" EntitySet="meetingTypes" />
+            <End Role="meetingTypeScrapeHelper" EntitySet="meetingTypeScrapeHelper" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetingTy__orgID__236943A5" Association="Self.FK__meetingTy__orgID__236943A5">
+            <End Role="organisations" EntitySet="organisations" />
+            <End Role="meetingTypeScrapeHelper" EntitySet="meetingTypeScrapeHelper" />
+          </AssociationSet>
+          <AssociationSet Name="FK__represent__orgID__1BC821DD" Association="Self.FK__represent__orgID__1BC821DD">
+            <End Role="organisations" EntitySet="organisations" />
+            <End Role="representatives" EntitySet="representatives" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="creo_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Official">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Attendances" Relationship="creo_dbModel.FK_Attendance_Official" FromRole="Official" ToRole="Attendance" />
-          <Property Name="OrganisationId" Type="Int32" />
-          <NavigationProperty Name="Organisation" Relationship="creo_dbModel.FK_Official_Organisation" FromRole="Official" ToRole="Organisation" />
-        </EntityType>
-        <EntityType Name="Organisation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Meetings" Relationship="creo_dbModel.FK__Meeting__Organis__571DF1D5" FromRole="Organisation" ToRole="Meeting" />
-          <NavigationProperty Name="Officials" Relationship="creo_dbModel.FK_Official_Organisation" FromRole="Organisation" ToRole="Official" />
-        </EntityType>
         <EntityContainer Name="creo_dbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Officials" EntityType="Self.Official" />
-          <EntitySet Name="Organisations" EntityType="Self.Organisation" />
-          <EntitySet Name="Attendances" EntityType="creo_dbModel.Attendance" />
-          <EntitySet Name="Meetings" EntityType="creo_dbModel.Meeting" />
-          <AssociationSet Name="FK_Attendance_Meeting" Association="creo_dbModel.FK_Attendance_Meeting">
-            <End Role="Meeting" EntitySet="Meetings" />
-            <End Role="Attendance" EntitySet="Attendances" />
+          <EntitySet Name="meetingAttendances" EntityType="creo_dbModel.meetingAttendance" />
+          <EntitySet Name="meetingRepRelationships" EntityType="creo_dbModel.meetingRepRelationship" />
+          <EntitySet Name="meetings" EntityType="creo_dbModel.meeting" />
+          <EntitySet Name="meetingTypes" EntityType="creo_dbModel.meetingType" />
+          <EntitySet Name="meetingTypeScrapeHelpers" EntityType="creo_dbModel.meetingTypeScrapeHelper" />
+          <EntitySet Name="organisations" EntityType="creo_dbModel.organisation" />
+          <EntitySet Name="representatives" EntityType="creo_dbModel.representative" />
+          <EntitySet Name="roles" EntityType="creo_dbModel.role" />
+          <AssociationSet Name="FK__meetingAt__meetI__2B0A656D" Association="creo_dbModel.FK__meetingAt__meetI__2B0A656D">
+            <End Role="meeting" EntitySet="meetings" />
+            <End Role="meetingAttendance" EntitySet="meetingAttendances" />
           </AssociationSet>
-          <AssociationSet Name="FK_Attendance_Official" Association="creo_dbModel.FK_Attendance_Official">
-            <End Role="Official" EntitySet="Officials" />
-            <End Role="Attendance" EntitySet="Attendances" />
+          <AssociationSet Name="FK__meetingAt__repID__2BFE89A6" Association="creo_dbModel.FK__meetingAt__repID__2BFE89A6">
+            <End Role="representative" EntitySet="representatives" />
+            <End Role="meetingAttendance" EntitySet="meetingAttendances" />
           </AssociationSet>
-          <AssociationSet Name="FK__Meeting__Organis__571DF1D5" Association="creo_dbModel.FK__Meeting__Organis__571DF1D5">
-            <End Role="Organisation" EntitySet="Organisations" />
-            <End Role="Meeting" EntitySet="Meetings" />
+          <AssociationSet Name="FK__meetingRe__meetT__282DF8C2" Association="creo_dbModel.FK__meetingRe__meetT__282DF8C2">
+            <End Role="meetingType" EntitySet="meetingTypes" />
+            <End Role="meetingRepRelationship" EntitySet="meetingRepRelationships" />
           </AssociationSet>
-          <AssociationSet Name="FK_Official_Organisation" Association="creo_dbModel.FK_Official_Organisation">
-            <End Role="Organisation" EntitySet="Organisations" />
-            <End Role="Official" EntitySet="Officials" />
+          <AssociationSet Name="FK__meetingRe__orgID__2645B050" Association="creo_dbModel.FK__meetingRe__orgID__2645B050">
+            <End Role="organisation" EntitySet="organisations" />
+            <End Role="meetingRepRelationship" EntitySet="meetingRepRelationships" />
           </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Attendance">
+          <AssociationSet Name="FK__meetingRe__repID__2739D489" Association="creo_dbModel.FK__meetingRe__repID__2739D489">
+            <End Role="representative" EntitySet="representatives" />
+            <End Role="meetingRepRelationship" EntitySet="meetingRepRelationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetings__meetTy__1F98B2C1" Association="creo_dbModel.FK__meetings__meetTy__1F98B2C1">
+            <End Role="meetingType" EntitySet="meetingTypes" />
+            <End Role="meeting" EntitySet="meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetings__orgID__1EA48E88" Association="creo_dbModel.FK__meetings__orgID__1EA48E88">
+            <End Role="organisation" EntitySet="organisations" />
+            <End Role="meeting" EntitySet="meetings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetingTy__meetT__22751F6C" Association="creo_dbModel.FK__meetingTy__meetT__22751F6C">
+            <End Role="meetingType" EntitySet="meetingTypes" />
+            <End Role="meetingTypeScrapeHelper" EntitySet="meetingTypeScrapeHelpers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__meetingTy__orgID__236943A5" Association="creo_dbModel.FK__meetingTy__orgID__236943A5">
+            <End Role="organisation" EntitySet="organisations" />
+            <End Role="meetingTypeScrapeHelper" EntitySet="meetingTypeScrapeHelpers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__represent__orgID__1BC821DD" Association="creo_dbModel.FK__represent__orgID__1BC821DD">
+            <End Role="organisation" EntitySet="organisations" />
+            <End Role="representative" EntitySet="representatives" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="meetingAttendance">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="meetAttID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OfficialId" Type="Int32" Nullable="false" />
-          <Property Name="MeetingId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Meeting" Relationship="creo_dbModel.FK_Attendance_Meeting" FromRole="Attendance" ToRole="Meeting" />
-          <NavigationProperty Name="Official" Relationship="creo_dbModel.FK_Attendance_Official" FromRole="Attendance" ToRole="Official" />
+          <Property Name="meetAttID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="meetID" Type="Int32" />
+          <Property Name="repID" Type="Int32" />
+          <NavigationProperty Name="meeting" Relationship="creo_dbModel.FK__meetingAt__meetI__2B0A656D" FromRole="meetingAttendance" ToRole="meeting" />
+          <NavigationProperty Name="representative" Relationship="creo_dbModel.FK__meetingAt__repID__2BFE89A6" FromRole="meetingAttendance" ToRole="representative" />
         </EntityType>
-        <EntityType Name="Meeting">
+        <EntityType Name="meetingRepRelationship">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="relID" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="OrganisationId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Attendances" Relationship="creo_dbModel.FK_Attendance_Meeting" FromRole="Meeting" ToRole="Attendance" />
-          <NavigationProperty Name="Organisation" Relationship="creo_dbModel.FK__Meeting__Organis__571DF1D5" FromRole="Meeting" ToRole="Organisation" />
+          <Property Name="relID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orgID" Type="Int32" />
+          <Property Name="repID" Type="Int32" />
+          <Property Name="meetTypeID" Type="Int32" />
+          <Property Name="startDate" Type="DateTime" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="meetingType" Relationship="creo_dbModel.FK__meetingRe__meetT__282DF8C2" FromRole="meetingRepRelationship" ToRole="meetingType" />
+          <NavigationProperty Name="organisation" Relationship="creo_dbModel.FK__meetingRe__orgID__2645B050" FromRole="meetingRepRelationship" ToRole="organisation" />
+          <NavigationProperty Name="representative" Relationship="creo_dbModel.FK__meetingRe__repID__2739D489" FromRole="meetingRepRelationship" ToRole="representative" />
         </EntityType>
-        <Association Name="FK_Attendance_Meeting">
-          <End Type="creo_dbModel.Meeting" Role="Meeting" Multiplicity="1" />
-          <End Type="creo_dbModel.Attendance" Role="Attendance" Multiplicity="*" />
+        <EntityType Name="meeting">
+          <Key>
+            <PropertyRef Name="meetID" />
+          </Key>
+          <Property Name="meetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orgID" Type="Int32" />
+          <Property Name="meetTypeID" Type="Int32" />
+          <Property Name="meetDate" Type="DateTime" Precision="3" />
+          <Property Name="minuteUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="minuteType" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="minuteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="minuteFile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="meetingAttendances" Relationship="creo_dbModel.FK__meetingAt__meetI__2B0A656D" FromRole="meeting" ToRole="meetingAttendance" />
+          <NavigationProperty Name="meetingType" Relationship="creo_dbModel.FK__meetings__meetTy__1F98B2C1" FromRole="meeting" ToRole="meetingType" />
+          <NavigationProperty Name="organisation" Relationship="creo_dbModel.FK__meetings__orgID__1EA48E88" FromRole="meeting" ToRole="organisation" />
+        </EntityType>
+        <EntityType Name="meetingType">
+          <Key>
+            <PropertyRef Name="meetTypeID" />
+          </Key>
+          <Property Name="meetTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="meetName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="meetingRepRelationships" Relationship="creo_dbModel.FK__meetingRe__meetT__282DF8C2" FromRole="meetingType" ToRole="meetingRepRelationship" />
+          <NavigationProperty Name="meetings" Relationship="creo_dbModel.FK__meetings__meetTy__1F98B2C1" FromRole="meetingType" ToRole="meeting" />
+          <NavigationProperty Name="meetingTypeScrapeHelpers" Relationship="creo_dbModel.FK__meetingTy__meetT__22751F6C" FromRole="meetingType" ToRole="meetingTypeScrapeHelper" />
+        </EntityType>
+        <EntityType Name="meetingTypeScrapeHelper">
+          <Key>
+            <PropertyRef Name="meetScrapeID" />
+          </Key>
+          <Property Name="meetScrapeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="meetTypeID" Type="Int32" />
+          <Property Name="orgID" Type="Int32" />
+          <Property Name="startWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="endWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="meetingType" Relationship="creo_dbModel.FK__meetingTy__meetT__22751F6C" FromRole="meetingTypeScrapeHelper" ToRole="meetingType" />
+          <NavigationProperty Name="organisation" Relationship="creo_dbModel.FK__meetingTy__orgID__236943A5" FromRole="meetingTypeScrapeHelper" ToRole="organisation" />
+        </EntityType>
+        <EntityType Name="organisation">
+          <Key>
+            <PropertyRef Name="orgID" />
+          </Key>
+          <Property Name="orgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orgName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="shortName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="meetingRepRelationships" Relationship="creo_dbModel.FK__meetingRe__orgID__2645B050" FromRole="organisation" ToRole="meetingRepRelationship" />
+          <NavigationProperty Name="meetings" Relationship="creo_dbModel.FK__meetings__orgID__1EA48E88" FromRole="organisation" ToRole="meeting" />
+          <NavigationProperty Name="meetingTypeScrapeHelpers" Relationship="creo_dbModel.FK__meetingTy__orgID__236943A5" FromRole="organisation" ToRole="meetingTypeScrapeHelper" />
+          <NavigationProperty Name="representatives" Relationship="creo_dbModel.FK__represent__orgID__1BC821DD" FromRole="organisation" ToRole="representative" />
+        </EntityType>
+        <EntityType Name="representative">
+          <Key>
+            <PropertyRef Name="repID" />
+          </Key>
+          <Property Name="repID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="forename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="imageUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="orgID" Type="Int32" />
+          <Property Name="startDate" Type="DateTime" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="meetingAttendances" Relationship="creo_dbModel.FK__meetingAt__repID__2BFE89A6" FromRole="representative" ToRole="meetingAttendance" />
+          <NavigationProperty Name="meetingRepRelationships" Relationship="creo_dbModel.FK__meetingRe__repID__2739D489" FromRole="representative" ToRole="meetingRepRelationship" />
+          <NavigationProperty Name="organisation" Relationship="creo_dbModel.FK__represent__orgID__1BC821DD" FromRole="representative" ToRole="organisation" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="roleID" />
+          </Key>
+          <Property Name="roleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__meetingAt__meetI__2B0A656D">
+          <End Type="creo_dbModel.meeting" Role="meeting" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingAttendance" Role="meetingAttendance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Meeting">
-              <PropertyRef Name="Id" />
+            <Principal Role="meeting">
+              <PropertyRef Name="meetID" />
             </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="MeetingId" />
+            <Dependent Role="meetingAttendance">
+              <PropertyRef Name="meetID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Attendance_Official">
-          <End Type="creo_dbModel.Official" Role="Official" Multiplicity="1" />
-          <End Type="creo_dbModel.Attendance" Role="Attendance" Multiplicity="*" />
+        <Association Name="FK__meetingAt__repID__2BFE89A6">
+          <End Type="creo_dbModel.representative" Role="representative" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingAttendance" Role="meetingAttendance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Official">
-              <PropertyRef Name="Id" />
+            <Principal Role="representative">
+              <PropertyRef Name="repID" />
             </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="OfficialId" />
+            <Dependent Role="meetingAttendance">
+              <PropertyRef Name="repID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Meeting__Organis__571DF1D5">
-          <End Type="creo_dbModel.Organisation" Role="Organisation" Multiplicity="1" />
-          <End Type="creo_dbModel.Meeting" Role="Meeting" Multiplicity="*" />
+        <Association Name="FK__meetingRe__meetT__282DF8C2">
+          <End Type="creo_dbModel.meetingType" Role="meetingType" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingRepRelationship" Role="meetingRepRelationship" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Organisation">
-              <PropertyRef Name="Id" />
+            <Principal Role="meetingType">
+              <PropertyRef Name="meetTypeID" />
             </Principal>
-            <Dependent Role="Meeting">
-              <PropertyRef Name="OrganisationId" />
+            <Dependent Role="meetingRepRelationship">
+              <PropertyRef Name="meetTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Official_Organisation">
-          <End Type="creo_dbModel.Organisation" Role="Organisation" Multiplicity="0..1" />
-          <End Type="creo_dbModel.Official" Role="Official" Multiplicity="*" />
+        <Association Name="FK__meetingRe__orgID__2645B050">
+          <End Type="creo_dbModel.organisation" Role="organisation" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingRepRelationship" Role="meetingRepRelationship" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Organisation">
-              <PropertyRef Name="Id" />
+            <Principal Role="organisation">
+              <PropertyRef Name="orgID" />
             </Principal>
-            <Dependent Role="Official">
-              <PropertyRef Name="OrganisationId" />
+            <Dependent Role="meetingRepRelationship">
+              <PropertyRef Name="orgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetingRe__repID__2739D489">
+          <End Type="creo_dbModel.representative" Role="representative" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingRepRelationship" Role="meetingRepRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="representative">
+              <PropertyRef Name="repID" />
+            </Principal>
+            <Dependent Role="meetingRepRelationship">
+              <PropertyRef Name="repID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetings__meetTy__1F98B2C1">
+          <End Type="creo_dbModel.meetingType" Role="meetingType" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meeting" Role="meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="meetingType">
+              <PropertyRef Name="meetTypeID" />
+            </Principal>
+            <Dependent Role="meeting">
+              <PropertyRef Name="meetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetings__orgID__1EA48E88">
+          <End Type="creo_dbModel.organisation" Role="organisation" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meeting" Role="meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organisation">
+              <PropertyRef Name="orgID" />
+            </Principal>
+            <Dependent Role="meeting">
+              <PropertyRef Name="orgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetingTy__meetT__22751F6C">
+          <End Type="creo_dbModel.meetingType" Role="meetingType" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingTypeScrapeHelper" Role="meetingTypeScrapeHelper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="meetingType">
+              <PropertyRef Name="meetTypeID" />
+            </Principal>
+            <Dependent Role="meetingTypeScrapeHelper">
+              <PropertyRef Name="meetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__meetingTy__orgID__236943A5">
+          <End Type="creo_dbModel.organisation" Role="organisation" Multiplicity="0..1" />
+          <End Type="creo_dbModel.meetingTypeScrapeHelper" Role="meetingTypeScrapeHelper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organisation">
+              <PropertyRef Name="orgID" />
+            </Principal>
+            <Dependent Role="meetingTypeScrapeHelper">
+              <PropertyRef Name="orgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__represent__orgID__1BC821DD">
+          <End Type="creo_dbModel.organisation" Role="organisation" Multiplicity="0..1" />
+          <End Type="creo_dbModel.representative" Role="representative" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="organisation">
+              <PropertyRef Name="orgID" />
+            </Principal>
+            <Dependent Role="representative">
+              <PropertyRef Name="orgID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -227,39 +527,87 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="creo_dbModelStoreContainer" CdmEntityContainer="creo_dbEntities">
-          <EntitySetMapping Name="Officials">
-            <EntityTypeMapping TypeName="creo_dbModel.Official">
-              <MappingFragment StoreEntitySet="Official">
-                <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="meetingAttendances">
+            <EntityTypeMapping TypeName="creo_dbModel.meetingAttendance">
+              <MappingFragment StoreEntitySet="meetingAttendance">
+                <ScalarProperty Name="repID" ColumnName="repID" />
+                <ScalarProperty Name="meetID" ColumnName="meetID" />
+                <ScalarProperty Name="meetAttID" ColumnName="meetAttID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Organisations">
-            <EntityTypeMapping TypeName="creo_dbModel.Organisation">
-              <MappingFragment StoreEntitySet="Organisation">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="meetingRepRelationships">
+            <EntityTypeMapping TypeName="creo_dbModel.meetingRepRelationship">
+              <MappingFragment StoreEntitySet="meetingRepRelationships">
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="meetTypeID" ColumnName="meetTypeID" />
+                <ScalarProperty Name="repID" ColumnName="repID" />
+                <ScalarProperty Name="orgID" ColumnName="orgID" />
+                <ScalarProperty Name="relID" ColumnName="relID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Attendances">
-            <EntityTypeMapping TypeName="creo_dbModel.Attendance">
-              <MappingFragment StoreEntitySet="Attendance">
-                <ScalarProperty Name="MeetingId" ColumnName="MeetingId" />
-                <ScalarProperty Name="OfficialId" ColumnName="OfficialId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="meetings">
+            <EntityTypeMapping TypeName="creo_dbModel.meeting">
+              <MappingFragment StoreEntitySet="meetings">
+                <ScalarProperty Name="minuteFile" ColumnName="minuteFile" />
+                <ScalarProperty Name="minuteText" ColumnName="minuteText" />
+                <ScalarProperty Name="minuteType" ColumnName="minuteType" />
+                <ScalarProperty Name="minuteUrl" ColumnName="minuteUrl" />
+                <ScalarProperty Name="meetDate" ColumnName="meetDate" />
+                <ScalarProperty Name="meetTypeID" ColumnName="meetTypeID" />
+                <ScalarProperty Name="orgID" ColumnName="orgID" />
+                <ScalarProperty Name="meetID" ColumnName="meetID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Meetings">
-            <EntityTypeMapping TypeName="creo_dbModel.Meeting">
-              <MappingFragment StoreEntitySet="Meeting">
-                <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="meetingTypes">
+            <EntityTypeMapping TypeName="creo_dbModel.meetingType">
+              <MappingFragment StoreEntitySet="meetingTypes">
+                <ScalarProperty Name="meetName" ColumnName="meetName" />
+                <ScalarProperty Name="meetTypeID" ColumnName="meetTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="meetingTypeScrapeHelpers">
+            <EntityTypeMapping TypeName="creo_dbModel.meetingTypeScrapeHelper">
+              <MappingFragment StoreEntitySet="meetingTypeScrapeHelper">
+                <ScalarProperty Name="endWord" ColumnName="endWord" />
+                <ScalarProperty Name="startWord" ColumnName="startWord" />
+                <ScalarProperty Name="orgID" ColumnName="orgID" />
+                <ScalarProperty Name="meetTypeID" ColumnName="meetTypeID" />
+                <ScalarProperty Name="meetScrapeID" ColumnName="meetScrapeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="organisations">
+            <EntityTypeMapping TypeName="creo_dbModel.organisation">
+              <MappingFragment StoreEntitySet="organisations">
+                <ScalarProperty Name="shortName" ColumnName="shortName" />
+                <ScalarProperty Name="orgName" ColumnName="orgName" />
+                <ScalarProperty Name="orgID" ColumnName="orgID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="representatives">
+            <EntityTypeMapping TypeName="creo_dbModel.representative">
+              <MappingFragment StoreEntitySet="representatives">
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="orgID" ColumnName="orgID" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+                <ScalarProperty Name="forename" ColumnName="forename" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="repID" ColumnName="repID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="creo_dbModel.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

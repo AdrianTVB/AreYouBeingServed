@@ -12,28 +12,27 @@ namespace Domain.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class organisation
+    public partial class representative
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public organisation()
+        public representative()
         {
+            this.meetingAttendances = new HashSet<meetingAttendance>();
             this.meetingRepRelationships = new HashSet<meetingRepRelationship>();
-            this.meetings = new HashSet<meeting>();
-            this.meetingTypeScrapeHelpers = new HashSet<meetingTypeScrapeHelper>();
-            this.representatives = new HashSet<representative>();
         }
     
-        public int orgID { get; set; }
-        public string orgName { get; set; }
-        public string shortName { get; set; }
+        public int repID { get; set; }
+        public string surname { get; set; }
+        public string forename { get; set; }
+        public string imageUrl { get; set; }
+        public Nullable<int> orgID { get; set; }
+        public Nullable<System.DateTime> startDate { get; set; }
+        public Nullable<System.DateTime> endDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<meetingAttendance> meetingAttendances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<meetingRepRelationship> meetingRepRelationships { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<meeting> meetings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<meetingTypeScrapeHelper> meetingTypeScrapeHelpers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<representative> representatives { get; set; }
+        public virtual organisation organisation { get; set; }
     }
 }

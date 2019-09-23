@@ -12,13 +12,13 @@ namespace Domain.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Attendance
+    public partial class meetingAttendance
     {
-        public int Id { get; set; }
-        public int OfficialId { get; set; }
-        public int MeetingId { get; set; }
+        public int meetAttID { get; set; }
+        public Nullable<int> meetID { get; set; }
+        public Nullable<int> repID { get; set; }
     
-        public virtual Meeting Meeting { get; set; }
-        public virtual Official Official { get; set; }
+        public virtual meeting meeting { get; set; }
+        public virtual representative representative { get; set; }
     }
 }

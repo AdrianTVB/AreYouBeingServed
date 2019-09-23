@@ -58,13 +58,13 @@ namespace Creo.Controllers
 
 			using ( creo_dbEntities dbContext = new creo_dbEntities( ) )
 			{
-				foreach ( Official official in dbContext.Officials.Where( w => w.OrganisationId == organisationid ) )
+				foreach ( representative official in dbContext.representatives.Where( w => w.orgID == organisationid ) )
 				{
 					string url = null;
-					urlDict.TryGetValue( official.Name, out url );
-					if ( official.Attendances.Count > 2 )
+					urlDict.TryGetValue( official.surname, out url );
+					if ( official.meetingAttendances.Count > 2 )
 					{
-						vm.Attendees.Add( new OfficialListItem { Id = official.Id, Attendances = official.Attendances.Count, Name = official.Name, ProfileImageUrl = url } );
+						vm.Attendees.Add( new OfficialListItem { Id = official.repID, Attendances = official.meetingAttendances.Count, Name = official.surname, ProfileImageUrl = url } );
 
 					}
 				}
@@ -73,7 +73,7 @@ namespace Creo.Controllers
 			vm.Attendees = vm.Attendees.OrderByDescending( a => a.Attendances ).ToList( );
 
 			vm.MaxAttending = vm.Attendees.Select( a => a.Attendances ).Max( );
-			vm.Title = organisationid == 17 ? "Napier City Councillors" : "Hastings District Councillors";
+			vm.Title = organisationid == 1 ? "Napier City Councillors" : "Hastings District Councillors";
 
 			return View( vm );
 		}

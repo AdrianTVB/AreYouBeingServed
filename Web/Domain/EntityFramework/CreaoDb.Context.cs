@@ -25,9 +25,13 @@ namespace Domain.EntityFramework
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Official> Officials { get; set; }
-        public virtual DbSet<Organisation> Organisations { get; set; }
-        public virtual DbSet<Attendance> Attendances { get; set; }
-        public virtual DbSet<Meeting> Meetings { get; set; }
+        public virtual DbSet<meetingAttendance> meetingAttendances { get; set; }
+        public virtual DbSet<meetingRepRelationship> meetingRepRelationships { get; set; }
+        public virtual DbSet<meeting> meetings { get; set; }
+        public virtual DbSet<meetingType> meetingTypes { get; set; }
+        public virtual DbSet<meetingTypeScrapeHelper> meetingTypeScrapeHelpers { get; set; }
+        public virtual DbSet<organisation> organisations { get; set; }
+        public virtual DbSet<representative> representatives { get; set; }
+        public virtual DbSet<role> roles { get; set; }
     }
 }

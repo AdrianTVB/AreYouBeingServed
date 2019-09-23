@@ -5,15 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="298003ea863646949207094a66613395" Name="Diagram1">
-        <EntityTypeShape EntityType="creo_dbModel.Official" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="creo_dbModel.Organisation" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="creo_dbModel.Attendance" Width="1.5" PointX="7.25" PointY="2.75" />
-        <EntityTypeShape EntityType="creo_dbModel.Meeting" Width="1.5" PointX="5" PointY="4.5" />
-        <AssociationConnector Association="creo_dbModel.FK_Attendance_Meeting" />
-        <AssociationConnector Association="creo_dbModel.FK_Attendance_Official" />
-        <AssociationConnector Association="creo_dbModel.FK__Meeting__Organis__571DF1D5" />
-        <AssociationConnector Association="creo_dbModel.FK_Official_Organisation" />
-        </Diagram>
+        <EntityTypeShape EntityType="creo_dbModel.meetingAttendance" Width="1.5" PointX="8.25" PointY="12.375" />
+        <EntityTypeShape EntityType="creo_dbModel.meetingRepRelationship" Width="1.5" PointX="5.25" PointY="12.25" />
+        <EntityTypeShape EntityType="creo_dbModel.meeting" Width="1.5" PointX="6" PointY="6.625" />
+        <EntityTypeShape EntityType="creo_dbModel.meetingType" Width="1.5" PointX="3.75" PointY="4.25" />
+        <EntityTypeShape EntityType="creo_dbModel.meetingTypeScrapeHelper" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="creo_dbModel.organisation" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="creo_dbModel.representative" Width="1.5" PointX="3" PointY="17.25" />
+        <EntityTypeShape EntityType="creo_dbModel.role" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingAt__meetI__2B0A656D" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingAt__repID__2BFE89A6" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingRe__meetT__282DF8C2" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingRe__orgID__2645B050" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingRe__repID__2739D489" />
+        <AssociationConnector Association="creo_dbModel.FK__meetings__meetTy__1F98B2C1" />
+        <AssociationConnector Association="creo_dbModel.FK__meetings__orgID__1EA48E88" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingTy__meetT__22751F6C" />
+        <AssociationConnector Association="creo_dbModel.FK__meetingTy__orgID__236943A5" />
+        <AssociationConnector Association="creo_dbModel.FK__represent__orgID__1BC821DD" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

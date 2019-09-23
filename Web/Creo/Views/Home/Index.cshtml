@@ -35,8 +35,8 @@
 				type: 'GET',
 				dataType: 'json'
 			}).done(function (result) {
-				result.vectorQuery.layers['98753'].features[1].id = 18;
-				result.vectorQuery.layers['98753'].features[3].id = 17;
+				result.vectorQuery.layers['98753'].features[1].id = 2;
+				result.vectorQuery.layers['98753'].features[3].id = 1;
 
 				var features = [
 					result.vectorQuery.layers['98753'].features[1], result.vectorQuery.layers['98753'].features[3]
@@ -64,7 +64,7 @@
 		}
 
 		function getColor(id) {
-			if (id == 18) {
+			if (id == 2) {
 				return '#7fcdbb';
 			}
 			return '#2c7fb8';
@@ -101,7 +101,7 @@
 		}
 
 		function setTitle(id) {
-			if (id == 17) {
+			if (id == 1) {
 				return "Napier City Council";
 			}
 			return "Hastings District Council";

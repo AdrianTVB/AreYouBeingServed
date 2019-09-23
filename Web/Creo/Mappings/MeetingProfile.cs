@@ -8,8 +8,8 @@ namespace Creo.Mappings
 	{
 		public MeetingProfile( )
 		{
-			CreateMap<Meeting, MeetingAttendanceListItem>( )
-				.ForMember( dest => dest.Organisation, opt => opt.MapFrom( s => s.Organisation.Name ) );
+			CreateMap<meeting, MeetingAttendanceListItem>( )
+				.ForMember( dest => dest.Organisation, opt => opt.MapFrom( s => s.organisation.orgName ) );
 		}
 	}
 }

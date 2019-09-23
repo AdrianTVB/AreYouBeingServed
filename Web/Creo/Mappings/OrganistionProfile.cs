@@ -8,7 +8,7 @@ namespace Creo.Mappings
 	{
 		public OrganistionProfile( )
 		{
-			CreateMap<Organisation, OrganisationListItem>( );
+			CreateMap<organisation, OrganisationListItem>( );
 		}
 	}
 }

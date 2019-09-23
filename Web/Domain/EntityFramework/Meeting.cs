@@ -12,21 +12,26 @@ namespace Domain.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class Meeting
+    public partial class meeting
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Meeting()
+        public meeting()
         {
-            this.Attendances = new HashSet<Attendance>();
+            this.meetingAttendances = new HashSet<meetingAttendance>();
         }
     
-        public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Name { get; set; }
-        public int OrganisationId { get; set; }
+        public int meetID { get; set; }
+        public Nullable<int> orgID { get; set; }
+        public Nullable<int> meetTypeID { get; set; }
+        public Nullable<System.DateTime> meetDate { get; set; }
+        public string minuteUrl { get; set; }
+        public string minuteType { get; set; }
+        public string minuteText { get; set; }
+        public string minuteFile { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Attendance> Attendances { get; set; }
-        public virtual Organisation Organisation { get; set; }
+        public virtual ICollection<meetingAttendance> meetingAttendances { get; set; }
+        public virtual meetingType meetingType { get; set; }
+        public virtual organisation organisation { get; set; }
     }
 }

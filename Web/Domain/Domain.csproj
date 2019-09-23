@@ -50,9 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityFramework\Attendance.cs">
-      <DependentUpon>CreaoDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityFramework\CreaoDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,13 +65,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CreaoDb.edmx</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\Meeting.cs">
+    <Compile Include="EntityFramework\meeting.cs">
       <DependentUpon>CreaoDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\Official.cs">
+    <Compile Include="EntityFramework\meetingAttendance.cs">
       <DependentUpon>CreaoDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\Organisation.cs">
+    <Compile Include="EntityFramework\meetingRepRelationship.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\meetingType.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\meetingTypeScrapeHelper.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\organisation.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\representative.cs">
+      <DependentUpon>CreaoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\role.cs">
       <DependentUpon>CreaoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

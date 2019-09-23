@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Creo.ViewModels.MeetingAttendance;
 using Creo.ViewModels.Official;
+using Creo.ViewModels.Organisation;
 using Domain.EntityFramework;
 
 namespace Creo.Controllers
@@ -46,7 +47,15 @@ namespace Creo.Controllers
 
 		public ActionResult Index( )
 		{
-			return View( );
+			OrganisationList orgList = new OrganisationList( );
+			using ( creo_dbEntities dbContext = new creo_dbEntities( ) )
+			{
+				orgList.Organisations = dbContext.organisations.Select( org =>
+					new OrganisationListItem( ) { id = org.orgID, Name = org.orgName, Type = 1 } ).ToList( );
+
+			}
+
+			return View( orgList );
 		}
 
 

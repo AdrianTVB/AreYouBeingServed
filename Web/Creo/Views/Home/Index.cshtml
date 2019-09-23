@@ -1,7 +1,7 @@
-﻿@model Creo.ViewModels.MeetingAttendance.MeetingAttendanceList
+﻿@model Creo.ViewModels.Organisation.OrganisationList
 
 @{
-	ViewBag.Title = "Home Page";
+	ViewBag.Title = "Are You Being Served?";
 }
 
 @section scripts {
@@ -35,6 +35,11 @@
 				type: 'GET',
 				dataType: 'json'
 			}).done(function (result) {
+
+				var organisations = @Html.Raw(Json.Encode(Model.Organisations));
+				
+				// TODO Figure out a smart way to do this mapping.... 
+
 				result.vectorQuery.layers['98753'].features[1].id = 2;
 				result.vectorQuery.layers['98753'].features[3].id = 1;
 
@@ -62,14 +67,14 @@
 			$('.modal-body  .word-cloud').attr('href', getWordCloudUrl(e.target.feature.id));
 			$('#modalTrigger').trigger('click');
 		}
-
+		
 		function getColor(id) {
 			if (id == 2) {
 				return '#7fcdbb';
 			}
 			return '#2c7fb8';
 		}
-
+		
 		function style(feature) {
 			return {
 				fillColor: getColor(feature.id),
@@ -154,7 +159,7 @@
 				<div>
 					Do you want to see what topics the councillors have been talking about, or the meeting attendance of the councillors?
 				</div>
-				<br/>
+				<br />
 				<a class="list-of-attendance btn btn-primary" href="/Home/ListOfCouncillors?organisationid=4" style="background: #7fcdbb; border-color: #7fcdbb;">Attendance</a>
 				<a class="word-cloud btn btn-primary">Word Clouds</a>
 			</div>

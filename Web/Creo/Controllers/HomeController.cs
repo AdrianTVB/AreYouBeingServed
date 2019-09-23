@@ -58,8 +58,9 @@ namespace Creo.Controllers
 			return View( orgList );
 		}
 
-
+		#if !DEBUG
 		[OutputCache( Duration = 86400, VaryByParam = "organisationid" )]
+		#endif
 		public ActionResult ListOfCouncillors( int organisationid )
 		{
 			MeetingAttendanceList vm = new MeetingAttendanceList( );

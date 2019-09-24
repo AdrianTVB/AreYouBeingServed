@@ -1,0 +1,355 @@
+Minutes of Finance Audit & Risk Sub-committee - 21 August 2019
+Unconfirmed
+MINUTES OF A
+meeting of the Finance Audit & Risk Sub-committee
+Date:                          Wednesday 21 August 2019
+Time:                          9.00am
+Venue:
+Council Chamber
+Hawke's Bay Regional Council
+159 Dalton Street
+NAPIER
+Present:                     N Kirton - Chairman
+P Bailey
+A J Dick
+R Dinwoodie
+In Attendance:          J Palmer – Chief Executive
+J Ellerm –
+Group Manager Corporate Services
+S Davé –
+Chief Financial Officer
+J Lawrence –
+Group Manager Office of the CE & Chair
+P Munro – Te
+Pou Whakarae
+T Kilkolly – Principal
+Accountant Rates and Revenue
+A Siddles – ICT
+Manager
+A Roets – Governance
+Administration Assistant
+1.       Welcome/Apologies/Notices
+The Chair welcomed
+everyone to the meeting, noting that this is Councillor Alan Dick’s last
+Finance, Audit and Risk Sub-Committee meeting.
+Jessica Ellerm advised
+that Andrew Siddles, ICT Manager, is in attendance to provide information about
+Council’s Cloud services provider, Revera.
+Resolution
+FIN110/19    That the apology
+for absence from Councillor Rick Barker be accepted.
+Bailey/Dick
+CARRIED
+At the Chair’s
+invitation, Andrew Siddles advised the Sub-committee that:
+·
+HBRC’s Infrastructure as a Service (IaaS) provider
+is Revera, which manages and hosts Cloud computing services like data centres,
+storage and back-up services for government agencies, and is a CCO all of
+government service run by the Department of Internal Affairs (DIA).
+·
+The latest 3 yearly audit of security compliance
+as part of a recertification process found that Revera had a number of process
+related issues resulting in its being non-compliant, hence DIA has taken over direct
+operations management of the security systems.
+·
+There is no business impact for the Regional
+Council and the service will continue to run, and DIA has advised it is satisfied
+with the progress being made toward resolving the issues pointed out in the
+Audit report.
+·
+Resolution of issues will be followed by an
+external validation process to ensure that all risks have been properly closed before
+Revera’s service can be re-certified.
+·
+HBRC staff are currently monitoring the
+situation, and also currently reviewing all permissions into the server
+environment, contracts and Change Management processes.
+2.       Conflict
+of Interest Declarations
+There were no
+Conflict of Interest Declarations.
+3.       Confirmation of Minutes of the
+Finance Audit & Risk Sub-Committee meeting held on 22 May 2019
+FIN111/19
+Resolution
+Minutes of the Finance Audit & Risk Sub-committee held on
+Wednesday, 22 May 2019, a copy having been circulated prior to the meeting,
+were taken as read and confirmed as a true and correct record.
+Bailey/Dinwoodie
+CARRIED
+4.
+Follow-ups from Previous Finance Audit
+and Risk Sub-Committee Meetings
+In relation to Council’s current
+approach to Climate Change, Council has strong commitment internally towards
+reducing its environmental footprint, including progression towards becoming
+Enviromark accredited.
+It is proposed that Climate Change work
+relating to the region (supporting communities and businesses) will be
+reported through the Environment and Services Committee and that
+Organisational Performance reports (carbon footprint, etc) to the Corporate
+and Strategic Committee will report organisational initiatives related to
+Climate Change.
+Appointment of a new People and
+Capability Manager is anticipated to be done by December 2019. Implementation
+plan for the organisation’s learning and development strategy is due
+for sign off by the Executive Leadership Team on 27 August.
+Reporting by joint committees will be
+reviewed at the beginning of the new triennium.
+FIN112/19
+Resolutions
+That the Finance, Audit and Risk Sub-committee
+receives and notes the “Follow-ups from Previous Finance Audit and
+Risk Sub-committee Meetings” staff report.
+Bailey/Dick
+CARRIED
+5.
+Remission of Penalties on Rates Policy
+(Fixed Term)
+Trudy Kilkolly introduced the item, noting it results from the
+changes to HBRC’s rates due dates.  Discussions traversed:
+·
+The current Policy allows for one remission
+every three years for a missed rate payment
+·
+The Policy change recognises that some
+ratepayers will be required make two payments in the 2020 calendar year,
+which may cause financial hardship.
+FIN113/19
+Resolutions
+1.      That the Finance, Audit and Risk Sub-committee receives and
+considers the “Remission of Penalties on Rates Policy (Fixed Term)”
+staff report.
+2.      The Finance, Audit and Risk Sub-committee recommends that the
+Corporate and Strategic Committee recommends that Hawke’s Bay Regional
+Council:
+2.1.      Agrees the decisions to be made are not significant under the
+criteria contained in Council’s adopted Significance and Engagement
+Policy, and that Council will consult as required by LGA s103(4) and s82 as
+part of either the 2020-21 Annual Plan or with other appropriate consultation
+process.
+2.2.      Subject to consultation as per 2.1 above, agrees to adopt a
+Remission of Penalties on Rates Policy (Fixed Term).
+Bailey/Dinwoodie
+CARRIED
+6.
+Six Monthly Report on Risk Assessment and
+Management
+Joanne Lawrence introduced the item, which was taken as
+read.  Discussions covered:
+·
+Feedback from last FARS meeting resulted in
+further work on the issues of the risks of Harm to the Environment, Civil
+Defence, and Staff retention and welfare.
+·
+Risk of Harm to Environment is a new risk for
+consideration when undertaking flood scheme operations in particular, with
+Chris Dolley the Risk Owner.
+·
+Further work on Civil Defence Risk will be
+included as part of the risk management review process later in the financial
+year.
+·
+Several mitigation initiatives have been
+implemented for Staff Wellbeing and Staff Retention risks, including the
+implementation of the organisational development review and programme,
+Learning and Development Strategy and Action Plan, and the full remuneration
+review just completed.
+·
+Risks trending upwards include the
+Implementation of the National Policy for Freshwater Management. Central
+Government is expected to impose a new deadline of 2025 for all freshwater
+plans to be operative and the Strategic Planning team will continue to
+monitor this closely.
+·
+The Human Health impacts from contamination of
+drinking water risk is trending downwards as a result of the review of National
+Environment Standards for drinking water and the identification of source
+protection zones in Plan Change 9.
+·
+A newly created risk and assurance role in the
+Office of the CE and Chair will lead responsibility for the risk management
+portfolio including development of Council’s assurance framework.
+·
+The newly appointed Chief Financial Officer,
+Shash Davé will retain an advisory link to this work stream.
+·
+Suggestions were made that consideration
+should be given to the human health risks associated with swimming and
+recreational activities in contaminated water and with regard to landfills
+not listed on the HAIL register.
+FIN114/19
+Resolutions
+That the
+Finance, Audit and Risk Sub-committee:
+1.      receives and considers the “Six Monthly Risk Assessment
+and Management” staff report
+2.      confirms its confidence that Council
+management has a current and comprehensive risk management framework and
+associated procedures for effective identification and management of the Council’s
+significant risks
+3.      recommends that the Corporate and Strategic Committee receives and
+notes the resolutions of the sub-committee, confirming the robustness of Council’s risk management systems,
+processes and practices.
+Kirton/Dick
+CARRIED
+7.
+Treasury Report
+Shash Davé, Chief Financial Officer introduced the item,
+which was was taken as read, and discussions covered:
+·
+Council’s investment returns are below the
+FY19 targeted net inflation-adjusted return of 4.5% - and may continue over
+the next 12-18 months
+·
+Council’s current Statement of Investment
+Policy and Objectives (SIPO) requires fund managers to mitigate 100% of
+Council’s foreign currency exposure in all international asset classes
+except equities
+·
+Subsequent to both fund managers meeting their
+SIPO mandated asset allocations, staff and fund managers will evaluate the
+portfolio as well as options to present a more cost-effective solution which
+may require adjustment to the SIPO
+·
+Recommendations for adjustments to the SIPO
+and Council’s investment portfolio, including the proceeds of the Port
+share float will be put to the new Council for consideration and communication
+with the public.
+FIN115/19
+Resolution
+That the Finance Audit and
+Risk Sub-committee receives and notes the “Treasury Report”.
+Kirton/Bailey
+CARRIED
+8.
+Procurement Hub Update
+Mark Heaney introduced the item, which was taken as read.  Discussions
+covered:
+·
+An automated evaluation process triggers
+contract expiry notifications, budget performance, meeting specification,
+health and safety performance, etc through a “dashboard” view to
+mitigate the key audit finding relating to evidence to support procurement
+decisions
+·
+Matariki Regional Economic Strategy action
+committed to by all councils that all capital works be “put on the
+table” for a more managed procurement approach to avoid all councils
+competing for the same contractors for the same work. This sits with the region’s
+Chief Executives to identify where opportunities lay and they are currently recruiting
+a Manager to be responsible for this function, based at Hastings District
+Council and reporting to the regional Chief Executives group.
+FIN116/19
+Resolution
+That the Finance, Audit and
+Risk Sub-committee receives and notes the “Procurement Hub Update”
+staff report.
+Bailey/Dinwoodie
+CARRIED
+9.
+August 2019 Sub-Committee Work
+Programme Update
+The item was taken as read.
+·
+Audit NZ currently auditing HBRC financials,
+and Staff engaged in discussions with Audit NZ pertaining to the disclosure
+of HBRIC financials prior to the Napier Port IPO in relation to
+Council’s annual report.
+·
+Staff resourcing continues to be challenging,
+with Melissa des Landes also managing the HBRIC financials this year.
+·
+Jessica Ellerm advised that she distributed a
+note about Napier Port financials to FARS members via email
+·
+New auditors will be appointed for the next
+financial year.
+FIN117/19
+Resolution
+That the Finance, Audit and
+Risk Sub-committee receives and notes the “August 2019 Sub-committee
+Work Programme Update” staff report.
+Dick/Bailey
+CARRIED
+10.
+Proposed Local Government Act Section
+17a Review
+FIN118/19
+Resolution
+That Council excludes the public
+from this section of the meeting, being Agenda Item 10 Proposed Local
+Government Act Section 17a Review with the general subject of the item to be
+considered while the public is excluded; the reasons for passing the
+resolution and the specific grounds under Section 48 (1) of the Local
+Government Official Information and Meetings Act 1987 for the passing of this
+resolution being:
+GENERAL SUBJECT OF THE ITEM TO BE
+CONSIDERED
+REASON FOR PASSING THIS RESOLUTION
+GROUNDS UNDER SECTION 48(1) FOR THE
+PASSING OF THE RESOLUTION
+Proposed Local Government Act Section
+17a Review
+7(2)7(2)(f)(ii) The withholding of the
+information is necessary to maintain the effective conduct of public
+affairs through the protection of such members, officers, employees, and
+persons from improper pressure or harassment.
+The Council is specified, in the First
+Schedule to this Act, as a body to which the Act applies.
+Dinwoodie/Bailey
+CARRIED
+11.
+Confirmation of the Public Excluded
+Minutes of the Finance, Audit and Risk Sub-committee Meeting held 22 May 2019
+FIN119/19
+Resolution
+That the Council excludes the
+public from this section of the meeting being Confirmation of Public Excluded
+Minutes Agenda Item 11 with the general subject of the item to be considered
+while the public is excluded; the reasons for passing the resolution and the
+specific grounds under Section 48 (1) of the Local Government Official
+Information and Meetings Act 1987 for the passing of this resolution being:
+GENERAL SUBJECT OF THE ITEM TO BE
+CONSIDERED
+REASON FOR PASSING THIS RESOLUTION
+GROUNDS UNDER SECTION 48(1) FOR THE
+PASSING OF THE RESOLUTION
+Proposed 2019-20 Council
+Insurance Programme
+7(2)(i) That the public
+conduct of this agenda item would be likely to result in the disclosure of
+information where the withholding of the information is necessary to enable
+the local authority holding the information to carry out, without prejudice
+or disadvantage, negotiations (including commercial and industrial
+negotiations).
+The Council is
+specified, in the First Schedule to this Act, as a body to which the Act
+applies.
+Bailey/Dinwoodie
+CARRIED
+11.     Confirmation
+of Public Excluded Minutes of the Finance, Audit and Risk Sub-Committee held on
+22 May 2019
+FIN120/19  Public Excluded Minutes of the Finance, Audit and
+Risk Sub-Committee Committee meeting held on Wednesday, 22 May 2019, a copy
+having been circulated prior to the meeting, were taken as read and confirmed
+as a true and correct record.
+Bailey/Dinwoodie
+CARRIED
+Resolution
+FIN121/19  That the meeting moves out
+of Public Excluded session.
+Bailey/Kirton
+CARRIED
+The meeting went into public excluded session at 10.33am
+and out of public excluded session at 10.43am
+Closure:
+There
+being no further business the Chairman declared the meeting closed at 10.43am
+on Wednesday, 21 August 2019.
+Signed
+as a true and correct record.
+DATE: ................................................               CHAIRMAN:
+...............................................

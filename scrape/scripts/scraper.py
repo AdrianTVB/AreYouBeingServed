@@ -14,7 +14,7 @@ import baseinfo
 import dbConnectionString
 
 from schedProc import meet_infocouncil_scrape
-from url_to_text import html_to_txt, pdf_to_text
+from url_to_text import html_to_txt, pdf_to_txt
 from minProc import attendList, subString
 
 #engine = db.create_engine('sqlite:///rubs.db')
@@ -185,14 +185,14 @@ def meetings_base(meet_url=None):
         return -1
     # get the organisation ID corresponding to org_short
     org_id = org_id_lookup(shortName=meet_url['org_short'])
-    print("Reading the meetings schedule for %s.", meet_url['org_short'])
+    print("Reading the meetings schedule for %s." % meet_url['org_short'])
     # read the meeting schedule into a variable
     meet_l = meet_infocouncil_scrape(url=meet_url['meet_sched_url'])
     #print(meet_l)
     # iterate over the list and populate the meetings table.
     print("Loading schedule to database.")
     for m in meet_l:
-        print(m)
+        #print(m)
         if not m:
             continue
         # Parse the date
@@ -296,8 +296,14 @@ def meeting_text(fileDir="scrape/data/txt/scraped/"):
         #concatomate into a filename
         fname =  f_name_full[:str_max_len] + recID + '.txt'
         #read the url and type and then save as a text file
+        text = ""
         if m[5] == 'html':
             text = html_to_txt(url=m[4])
+        elif m[5] == 'pdf':
+            text = pdf_to_txt(url=m[4])
+        else:
+            continue
+        if text:
             print("Saving %s" % fname)
             with open(os.path.join(fileDir, fname), "w") as f:
                 f.write(text)

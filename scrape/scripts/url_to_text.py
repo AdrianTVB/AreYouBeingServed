@@ -3,7 +3,18 @@
 #import urllib
 import requests
 from bs4 import BeautifulSoup
-import os.path
+
+
+#from cStringIO import StringIO
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import TextConverter
+from pdfminer.layout import LAParams
+from pdfminer.pdfpage import PDFPage
+from urllib.request import urlopen
+#from StringIO import StringIO
+from io import StringIO, BytesIO
+#import os
+import sys, getopt
 
 ## TODO Turn into a function so given a url and filename and directory it will parse the url and put into the file.
 
@@ -23,7 +34,7 @@ import os.path
 #html = urllib.request.urlopen(url).read()
 #soup = BeautifulSoup(html)
 
-def html_to_txt(url, outputDir, outputFile):
+def html_to_txt(url):
     page_response = requests.get(url, timeout=5)
 
     soup = BeautifulSoup(page_response.content, "html.parser")
@@ -45,13 +56,37 @@ def html_to_txt(url, outputDir, outputFile):
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
     # drop blank lines
     text = '\n'.join(chunk for chunk in chunks if chunk)
-
     #print(text)
-
-
-
-    with open(os.path.join(outputDir, outputFile), "w") as f:
-        f.write(text)
+    return text
 
 
 #html_to_txt(url=url, outputDir=outputDir, outputFile=outputFile)
+
+
+#converts pdf, returns its text content as a string
+# modified from https://stanford.edu/~mgorkove/cgi-bin/rpython_tutorials/Using%20Python%20to%20Convert%20PDFs%20to%20Text%20Files.php#4
+# using https://stackoverflow.com/questions/9751197/opening-pdf-urls-with-pypdf
+def pdf_to_txt(url, pages=None):
+    if not pages:
+        pagenums = set()
+    else:
+        pagenums = set(pages)
+
+    output = StringIO()
+    infile = StringIO()
+    manager = PDFResourceManager()
+    converter = TextConverter(manager, output, laparams=LAParams())
+    interpreter = PDFPageInterpreter(manager, converter)
+
+    #infile = file(fname, 'rb')
+    #remote_file = urlopen(Request(url)).read()
+    remote_file = urlopen(url).read()
+    infile = BytesIO(remote_file)
+
+    for page in PDFPage.get_pages(infile, pagenums):
+        interpreter.process_page(page)
+    infile.close()
+    converter.close()
+    text = output.getvalue()
+    output.close
+    return text

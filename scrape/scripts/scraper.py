@@ -14,18 +14,18 @@ import baseinfo
 import dbConnectionString
 
 from schedProc import meet_infocouncil_scrape
-from html_to_text import html_to_txt
+from url_to_text import html_to_txt, pdf_to_text
 from minProc import attendList, subString
 
 #engine = db.create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = db.create_engine(dbConnectionString.connection_string('dev'))
+engine = db.create_engine(dbConnectionString.connection_string('sqlite'))
 
 connection = engine.connect()
 metadata = db.MetaData()
 
-fileDir="scrape/data/txt/scraped/dev/"
-#fileDir="scrape/data/txt/scraped/"
+#fileDir="scrape/data/txt/scraped/dev/"
+fileDir="scrape/data/txt/scraped/"
 
 organisations = db.Table('organisations',
                             metadata,
@@ -297,10 +297,10 @@ def meeting_text(fileDir="scrape/data/txt/scraped/"):
         fname =  f_name_full[:str_max_len] + recID + '.txt'
         #read the url and type and then save as a text file
         if m[5] == 'html':
-            html_to_txt(url=m[4],
-                        outputDir=fileDir,
-                        outputFile=fname)
+            text = html_to_txt(url=m[4])
             print("Saving %s" % fname)
+            with open(os.path.join(fileDir, fname), "w") as f:
+                f.write(text)
             #add the filename to the database
             udt = db.update(meetings).\
                   where(meetings.columns.meetID == m[0]).\

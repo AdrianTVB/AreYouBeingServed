@@ -7,7 +7,7 @@ import dbConnectionString
 
 #engine = create_engine('sqlite:///rubs.db')
 # options are 'sqlite' or 'dev'
-engine = create_engine(dbConnectionString.connection_string('dev'))
+engine = create_engine(dbConnectionString.connection_string('sqlite'))
 
 Base = declarative_base()
 

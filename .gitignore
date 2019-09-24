@@ -214,6 +214,7 @@ scrape/docs/rubs_er_minSplit.jpeg
 
 # Scrape db
 rubs.db
+rubs.db-journal
 
 # DB connections
 secrets.json

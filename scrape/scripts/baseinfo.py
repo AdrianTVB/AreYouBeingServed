@@ -413,6 +413,96 @@ meetingTypeScrapeHelp = [
         "meet_type": "Strategy Planning and Partnerships Committee",
         "startWord": "present:",
         "endWord": "also present:"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Extra Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Strategy and Infrastructure Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Finance Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Regulatory Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Community Services Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Extra Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Extra Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Extra Regional Council",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Corporate and Strategic Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Environment and Services Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Planning Committee",
+        "startWord": "present",
+        "endWord": "attendance"
     }
 ]
 
@@ -441,5 +531,89 @@ meetingRepAll = [
     {
         "org_short": "HDC",
         "meet_type": "Strategy Planning and Partnerships Committee"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Council"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Extra Council"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Strategy and Infrastructure Committee"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Finance Committee"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Regulatory Committee"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Community Services Committee"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Council"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Council Supplementary"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Extra Council"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Council"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Extra Council Supplementary"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Council Supplementary"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Extra Council"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Council"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Extra Regional Council"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Council Supplementary"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Corporate and Strategic Committee"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Corporate and Strategic Committee Supplementary"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Environment and Services Committee"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Planning Committee"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Extra Regional Planning Committee"
     }
 ]

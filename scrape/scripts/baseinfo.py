@@ -503,6 +503,114 @@ meetingTypeScrapeHelp = [
         "meet_type": "Regional Planning Committee",
         "startWord": "present",
         "endWord": "attendance"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Risk and Audit Subcommittee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Tenders Subcommittee",
+        "startWord": "present:",
+        "endWord": "also present:"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Community Grants Subcommittee",
+        "startWord": "present:",
+        "endWord": "also present:"
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Temporary Road Closures Subcommittee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Hearings Committee (For the consideration of Tenders)",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Hearings Committee (Dog Hearing)",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Audit and Risk Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Community Development Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Environment and Regulatory Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Finance and Planning Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Risk and Audit Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Economic Development Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Finance, Audit & Risk Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Maori Standing Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Extra Finance, Audit & Risk Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Infrastructure Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Transport Committee",
+        "startWord": "present",
+        "endWord": "attendance"
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Maori Committee",
+        "startWord": "present",
+        "endWord": "attendance"
     }
 ]
 
@@ -615,5 +723,134 @@ meetingRepAll = [
     {
         "org_short": "HBRC",
         "meet_type": "Extra Regional Planning Committee"
+    }
+]
+
+meetingRepExtra = [
+    {
+        "org_short": "HDC",
+        "meet_type": "Risk and Audit Subcommittee",
+        "representatives": [
+            "Kerr", "Nixon", "Travers"
+        ]
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Tenders Subcommittee",
+        "representatives": [
+            "Travers", "Watkins", "Lawson", "Nixon", "Redstone", "Hazlehurst"
+        ]
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Community Grants Subcommittee",
+        "representatives": [
+            "Dixon", "Barber", "Lawson", "Schollum", "Harvey", "Watkins", "Hazlehurst"
+        ]
+    },
+    {
+        "org_short": "HDC",
+        "meet_type": "Temporary Road Closures Subcommittee",
+        "representatives": [
+            "Nixon", "Watkins", "Hazlehurst"
+        ]
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Hearings Committee (For the consideration of Tenders)",
+        "representatives": [
+            "Jeffery", "Taylor", "Brosnan", "White", "Wise", "Wright"
+        ]
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Hearings Committee (Dog Hearing)",
+        "representatives": [
+            "Jeffery", "Taylor", "Brosnan", "White", "Wise", "Wright"
+        ]
+    },
+    {
+        "org_short": "NCC",
+        "meet_type": "Audit and Risk Committee",
+        "representatives": [
+            "Wise", "Hague"
+        ]
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Community Development Committee",
+        "representatives": [
+            "Walker", "Sharp", "Aitken", "Annand", "Burne-Field", "Minehan"
+        ]
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Environment and Regulatory Committee",
+        "representatives": [
+            "Walker", "Sharp", "Chote", "Muggeridge", "Tennent"
+        ]
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Finance and Planning Committee",
+        "representatives": [
+            "Walker", "Sharp", "Aitken", "Annand", "Burne-Field", "Chote", "Minehan", "Muggeridge", "Tennent"
+        ]
+    },
+    {
+        "org_short": "CHBDC",
+        "meet_type": "Risk and Audit Committee",
+        "representatives": [
+            "Walker", "Aitken", "Minehan", "Muggeridge", "Tennent"
+        ]
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Economic Development Committee",
+        "representatives": [
+            "Little", "Eaglesome-Karekare", "Johansen"
+        ]
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Finance, Audit & Risk Committee",
+        "representatives": [
+            "Little", "Eaglesome-Karekare", "Harker", "Flood"
+        ]
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Maori Standing Committee",
+        "representatives": [
+            "Little", "Lambert", "Harker"
+        ]
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Extra Finance, Audit & Risk Committee",
+        "representatives": [
+            "Little", "Eaglesome-Karekare", "Harker", "Flood"
+        ]
+    },
+    {
+        "org_short": "WDC",
+        "meet_type": "Infrastructure Committee",
+        "representatives": [
+            "Little", "Johansen", "Lambert"
+        ]
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Regional Transport Committee",
+        "representatives": [
+            "Dick", "Wilson"
+        ]
+    },
+    {
+        "org_short": "HBRC",
+        "meet_type": "Maori Committee",
+        "representatives": [
+            "Barker", "Graham", "Wilson"
+        ]
     }
 ]

@@ -349,6 +349,44 @@ def meet_rep_all_pop(meet_all=None, start_date=None, end_date=None):
                         repID=r[0])
                 ResultProxy = connection.execute(ins)
 
+def meet_rep_extra_pop(meet_extra=None, start_date=None, end_date=None):
+    if not meet_extra:
+        print("A list of dictionaries of meetings and the representatives \
+               that are expected to attend is required")
+        return -1
+    # Iterate through the file
+    print("Loading expected attendance.")
+    for e in meet_extra:
+        # Identify the organisation and meeting type
+        # get the organisation ID corresponding to org_short
+        org_id = org_id_lookup(shortName=e['org_short'])
+        #identify the meeting type
+        meet_type_id = meet_type_id_lookup(meet_type_name=e['meet_type'])
+        # get a list of representatives for that org
+        reps = e['representatives']
+        for r in reps:
+            rep_q = db.select([representatives]).\
+              where(representatives.columns.surname == r)
+            rep_p = connection.execute(rep_q)
+            rep_l = rep_p.fetchall()
+            if not rep_l:
+                continue
+            rep_id = rep_l[0][0]
+            # Insert data into the MeetingRepRelationShip table_row
+            meetrep_qry = db.select([meeting_rep_relationships]).\
+              where(and_(meeting_rep_relationships.columns.orgID == org_id,
+                    meeting_rep_relationships.columns.repID == rep_id,
+                    meeting_rep_relationships.columns.meetTypeID == meet_type_id))
+            meetrep_prox = connection.execute(meetrep_qry)
+            meetrep_set = meetrep_prox.fetchall()
+            #print(meetrep_set)
+            # If it isn't then insert it
+            if not meetrep_set:
+                ins = db.insert(meeting_rep_relationships).\
+                  values(orgID=org_id,
+                        meetTypeID=meet_type_id,
+                        repID=rep_id)
+                ResultProxy = connection.execute(ins)
 
 def scrape_help_update(new_helper):
     #Check new_helper has an orgshort and meeting type field
@@ -458,6 +496,8 @@ for new_meet_url in baseinfo.meetingUrl:
 meeting_text(fileDir=fileDir)
 
 meet_rep_all_pop(meet_all=baseinfo.meetingRepAll)
+
+meet_rep_extra_pop(meet_extra=baseinfo.meetingRepExtra)
 
 for h in baseinfo.meetingTypeScrapeHelp:
     scrape_help_update(new_helper=h)

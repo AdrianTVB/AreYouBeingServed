@@ -210,6 +210,7 @@ scrape/data
 scrape/docs/useful.md
 scrape/docs/webLinks.md
 scrape/docs/rubs_er_minSplit.jpeg
+!scrape/data/txt/scraped/dev/
 /venv
 
 # Scrape db
